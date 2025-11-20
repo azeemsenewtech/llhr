@@ -1,5 +1,5 @@
 import ClientSection from "./feacture/clientSection";
-import HeroSection from "./feacture/herosection";
+import HeroSection from "./feacture/heroSection";
 import Features from "./feacture/listSection";
 import MainSection from "./feacture/mainSection";
 import QSection from "./feacture/qSection";
