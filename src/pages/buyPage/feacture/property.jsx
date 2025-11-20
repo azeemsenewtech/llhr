@@ -72,7 +72,7 @@ const propertyData = [
 const Property = () => {
    const [price, setPrice] = useState([0, 2000000]);
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white relative pb-16 py-16">
       <div className="mx-auto max-w-6xl space-y-8 px-6">
         <div className="space-y-2">
           <p className="text-sm font-semibold uppercase  text-sky-500">
@@ -109,7 +109,7 @@ const Property = () => {
           </button>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex md:flex-row pb-16 flex-col gap-8">
           {/* <div className="rounded-[24px] bg-white p-4 shadow-lg">
             <div className="mb-2 flex items-center justify-between text-sm font-semibold text-slate-500">
               <span>Map View</span>
@@ -221,7 +221,7 @@ const Property = () => {
       </div>
     </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 flex-1">
             {propertyData.map((property) => (
               <article
                 key={property.id}

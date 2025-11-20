@@ -7,14 +7,14 @@ const HeroSection = () => {
 
   return (
     <div
-      className="w-full h-[70vh] bg-cover bg-center relative flex items-center"
+      className="w-full  bg-cover bg-center relative flex items-center"
       style={{ backgroundImage: "url('src/assets/image/herobg.png')" }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Content */}
-      <div className="relative w-full flex flex-col lg:flex-row items-start justify-between px-10 text-white">
+      <div className="relative w-full flex flex-col lg:flex-row items-start justify-between md:px-10 text-white">
         
         {/* Left Section */}
         <div className="flex flex-col max-w-xl p-6">
@@ -43,7 +43,7 @@ const HeroSection = () => {
 
         {/* Right Section */}
         <div className="flex p-6 lg:p-16 items-center justify-center">
-          <div className="h-[300px] flex flex-col items-start rounded-[25px] w-[500px] bg-white p-6">
+          <div className="h-[300px] flex flex-col items-start rounded-[25px] w-full md:w-[500px] bg-white p-6">
 
             {/* Tabs */}
             <div className="flex items-center justify-center gap-4 bg-[#F9FAFB] rounded-xl p-2 ">
