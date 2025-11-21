@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import houseImg from "../../../assets/image/house.png";
+import houseImg from "/assets/image/house.png";
 import OverView from "../../../component/ui/overview";
 
 const Star = ({ className = "w-4 h-4 text-yellow-400 inline-block" }) => (

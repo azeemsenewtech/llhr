@@ -12,11 +12,11 @@ const SellPage = () => {
         <div>
             <HeroSection/>
             <SellingPaths/>
-            <SellerTools/>
-            <HowItWorks/>
-            <SuccessStories/>
-            <FeaturedAgents/>
-            <ClientSection/>
+             <SellerTools/>
+             <HowItWorks/>
+             <SuccessStories/>
+             <FeaturedAgents/>
+            {/* <ClientSection/> */}
         </div>
     );
 }

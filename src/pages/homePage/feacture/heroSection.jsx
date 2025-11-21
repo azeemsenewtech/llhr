@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Arrow, LocationIcon } from "../../../assets/icon";
 
+
 const HeroSection = () => {
   const tabs = ["buy", "rent", "sell"];
   const [activeTab, setActiveTab] = useState("buy"); // default active tab
@@ -8,7 +9,7 @@ const HeroSection = () => {
   return (
     <div
       className="w-full  bg-cover bg-center relative flex items-center"
-      style={{ backgroundImage: "url('src/assets/image/herobg.png')" }}
+      style={{ backgroundImage: "url('/assets/image/herobg.png')" }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>

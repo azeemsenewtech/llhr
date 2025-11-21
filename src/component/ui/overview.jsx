@@ -1,6 +1,7 @@
     import { FiCheckCircle } from "react-icons/fi";
 import { PiListBold } from "react-icons/pi";
-import { Arrow, Number } from "../../assets/icon";
+import { Arrow } from "../../assets/icon";
+
 
 
 export default function PropertyDetails() {
@@ -57,7 +58,7 @@ export default function PropertyDetails() {
           {overview.map((item, index) => (
             <div className="flex items-center">
                 <div>
-          <Arrow />
+          <Arrow/>
                 </div>
                 <div
               key={index}

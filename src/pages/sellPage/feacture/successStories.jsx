@@ -68,7 +68,7 @@ const SuccessStories = () => {
       sqft: 1200,
       soldInDays: 12,
       aboveAsking: "$55K",
-      image: "src/assets/image/house.png"
+      image: "/assets/image/house.png"
     }
   ];
 

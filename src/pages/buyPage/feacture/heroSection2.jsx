@@ -7,10 +7,10 @@ const HeroSection2 = ({
   return (
     <section
       className="relative flex h-80 items-center bg-cover bg-center text-white"
-      style={{ backgroundImage: `linear-gradient(rgba(15, 14, 14, 0.45), rgba(0,0,0,0.45)), url('src/assets/image/herobg.png')` }}
+      style={{ backgroundImage: `linear-gradient(rgba(15, 14, 14, 0.45), rgba(0,0,0,0.45)), url('/assets/image/herobg.png')` }}
     >
       <div className="mx-auto w-full max-w-5xl px-6">
-        <h1 className="text-[54px] font-bold ">{title}</h1>
+        <h1 className="md:text-[54px] text-[40px] font-bold ">{title}</h1>
         <p className="mt-3 text-md text-white">
           {breadcrumb.map((crumb, idx) => (
             <span key={crumb}>

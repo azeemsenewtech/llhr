@@ -1,5 +1,8 @@
 import React from 'react';
-import herobg from '/src/assets/image/herobg.png'; // import image
+import herobg from '/public/assets/image/herobg.png';
+
+
+ // import image
 
 const HeroSection = () => {
   return (

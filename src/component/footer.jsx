@@ -36,7 +36,7 @@ const Footer = () => {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-2xl font-bold">
-              <img src="src/assets/icon/footerlogo.svg" alt="Senev Logo" className="h w-16 object-contain" />
+              <img src="/assets/icon/footerlogo.svg" alt="Senev Logo" className="h w-16 object-contain" />
             </div>
             <p className="text-sm text-white/80">
               AI-powered real estate platform connecting tenants and owners with trust,
