@@ -340,7 +340,7 @@ const FAQSection = () => {
             {/* Header Content */}
             <div className="mb-4">
               <h4 className="text-[#2c8cb5] font-medium text-sm uppercase tracking-widest mb-2">
-                FAQs
+              
               </h4>
               <h2 className="text-4xl font-bold text-[#1a2b49] mb-4">
                 Frequently Asked Question's!

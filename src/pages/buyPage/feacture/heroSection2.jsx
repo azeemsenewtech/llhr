@@ -1,5 +1,5 @@
 const HeroSection2 = ({
-  title = "Rent Your Ideal Home",
+  title = "Buy Your Dream Home",
   breadcrumb = ["Home", "Rent"],
   background =
     "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80",
@@ -10,7 +10,7 @@ const HeroSection2 = ({
       style={{ backgroundImage: `linear-gradient(rgba(15, 14, 14, 0.45), rgba(0,0,0,0.45)), url('/assets/image/herobg.png')` }}
     >
       <div className="mx-auto w-full max-w-5xl px-6">
-        <h1 className="md:text-[54px] text-[40px] font-bold ">{title}</h1>
+        <h1 className="md:text-[54px] font-poppin text-[40px] font-bold ">{title}</h1>
         <p className="mt-3 text-md text-white">
           {breadcrumb.map((crumb, idx) => (
             <span key={crumb}>

@@ -145,17 +145,17 @@ const Navbar = () => {
                 `relative py-2 px-1 transition-colors duration-300 font-poppin
                 
                 /* TOP LINE (Left to Right) -> Anchored to left-0 */
-                before:absolute before:top-0 before:left-0 before:h-[2px] before:bg-blue-500 
+                before:absolute before:top-0 before:left-0 before:h-[2px] before:bg-primary 
                 before:transition-all before:duration-300 
                 ${isActive ? "before:w-full" : "before:w-0 hover:before:w-full"}
 
                 /* BOTTOM LINE (Right to Left) -> Anchored to right-0 */
-                after:absolute after:bottom-0 after:right-0 after:h-[2px] after:bg-blue-500 
+                after:absolute after:bottom-0 after:right-0 after:h-[2px] after:bg-primary 
                 after:transition-all after:duration-300 
                 ${isActive ? "after:w-full" : "after:w-0 hover:after:w-full"}
 
                 /* Text Styling */
-                ${isActive ? "text-blue-600 font-semibold" : "text-gray-700 hover:text-blue-600"}
+                ${isActive ? "text-primary font-semibold" : "text-gray-700 hover:text-primary"}
                 `
               }
             >
@@ -166,11 +166,11 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex items-center gap-5">
-          <button className="text-blue-600 font-poppin font-medium hover:text-blue-800 transition">
+          <button className="text-primary font-poppin font-medium hover:text-primary transition">
             Login
           </button>
 
-          <button className="bg-blue-500 font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+          <button className="bg-primary font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-primary transition">
             Sign Up
           </button>
         </div>
@@ -223,8 +223,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `block w-full text-lg font-poppin border-l-4 pl-3 transition-all ${
                   isActive
-                    ? "border-blue-500 text-blue-600 bg-blue-50"
-                    : "border-transparent text-gray-700 hover:text-blue-600"
+                    ? "border-primary text-primary bg-primary/10"
+                    : "border-transparent text-gray-700 hover:text-primary"
                 }`
               }
             >
@@ -234,11 +234,11 @@ const Navbar = () => {
 
           {/* Mobile Buttons */}
           <div className="flex flex-col items-center gap-4 mt-6">
-            <button className="text-blue-600 w-full text-lg font-poppin font-medium hover:bg-blue-50 py-2 rounded">
+            <button className="text-primary w-full text-lg font-poppin font-medium hover:bg-primary/10 py-2 rounded">
               Login
             </button>
 
-            <button className="bg-blue-500 w-full text-white font-poppin text-lg font-medium px-6 py-2 rounded-lg shadow hover:bg-blue-600">
+            <button className="bg-primary w-full text-white font-poppin text-lg font-medium px-6 py-2 rounded-lg shadow hover:bg-primary/90">
               Sign Up
             </button>
           </div>

@@ -13,7 +13,7 @@
 //     badge: "Featured",
 //     status: "For Sale",
 //     image:
-//       "src/assets/image/house.png",
+//       "/assets/image/house.png",
 //   },
 //   {
 //     id: 2,
@@ -26,7 +26,7 @@
 //     badge: "Featured",
 //     status: "For Sale",
 //     image:
-//         "src/assets/image/house.png",
+//         "/assets/image/house.png",
 //   },
 //   {
 //     id: 3,
@@ -39,7 +39,7 @@
 //     badge: "Featured",
 //     status: "For Sale",
 //     image:
-//         "src/assets/image/house.png",
+//         "/assets/image/house.png",
 //   },
 //   {
 //     id: 3,
@@ -52,7 +52,7 @@
 //     badge: "Featured",
 //     status: "For Sale",
 //     image:
-//         "src/assets/image/house.png",
+//         "/assets/image/house.png",
 //   },
 //   {
 //     id: 3,
@@ -65,7 +65,7 @@
 //     badge: "Featured",
 //     status: "For Sale",
 //     image:
-//         "src/assets/image/house.png",
+//         "/assets/image/house.png",
 //   },
 // ];
 
@@ -360,228 +360,338 @@
 // };
 
 // export default Property;
-
-import { useEffect, useState } from "react";
-import { Heart } from "../../../assets/icon";
-
-
-const API_URL = "http://192.168.18.29:5000/listings";
-
-// 🔹 Cloudinary Settings (CHANGE THESE)
-const CLOUD_NAME = "your_cloudinary_cloud_name";
-const UPLOAD_PRESET = "your_upload_preset";
-
-const Property = () => {
-  const [propertyData, setPropertyData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // Form State
+// api
+// import { useEffect, useState } from "react";
+// import { Heart } from "../../../assets/icon";
+// const API_URL = "http://192.168.18.29:5000/listings";
+// // UPDATE WITH REAL VALUES
+// const CLOUD_NAME = "your_cloudinary_cloud_name";
+// const UPLOAD_PRESET = "your_upload_preset";
+// const Property = () => {
+//   const [propertyData, setPropertyData] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   // Form State
+//   const [form, setForm] = useState({
+//     title: "",
+//     location: "",
+//     beds: "",
+//     baths: "",
+//     area: "",
+//     price: "",
+//     badge: "Featured",
+//     status: "For Sale",
+//     image: "",
+//   });
+//   const [imageFile, setImageFile] = useState(null);
+//   const handleChange = (e) => {
+//     setForm({ ...form, [e.target.name]: e.target.value });
+//   };
+//   // UPLOAD IMAGE → CLOUDINARY
+//   const uploadImageToCloudinary = async () => {
+//     if (!imageFile) return "";
+//     const data = new FormData();
+//     data.append("file", imageFile);
+//     data.append("upload_preset", UPLOAD_PRESET);
+//     const res = await fetch(
+//       `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+//       { method: "POST", body: data }
+//     );
+//     const uploadedImage = await res.json();
+//     return uploadedImage.secure_url;
+//   };
+//   // CREATE PROPERTY
+//   const createProperty = async (e) => {
+//     e.preventDefault();
+//     let imageUrl = form.image;
+//     if (imageFile) {
+//       imageUrl = await uploadImageToCloudinary();
+//     }
+//     const payload = {
+//       ...form,
+//       image: imageUrl,
+//     };
+//     try {
+//       const response = await fetch(API_URL, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(payload),
+//       });
+//       const newProperty = await response.json();
+//       setPropertyData((prev) => [...prev, newProperty]);
+//       // Reset Form
+//       setForm({
+//         title: "",
+//         location: "",
+//         beds: "",
+//         baths: "",
+//         area: "",
+//         price: "",
+//         badge: "Featured",
+//         status: "For Sale",
+//         image: "",
+//       });
+//       setImageFile(null);
+//     } catch (error) {
+//       console.error("Error creating property:", error);
+//     }
+//   };
+//   // FETCH ALL PROPERTIES
+//   const fetchProperties = async () => {
+//     try {
+//       const response = await fetch(API_URL);
+//       const data = await response.json();
+//       setPropertyData(data);
+//     } catch (error) {
+//       console.error("Error fetching properties:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//   useEffect(() => {
+//     fetchProperties();
+//   }, []);
+//   return (
+//     <section className="bg-white relative pb-16 py-16">
+//       <div className="mx-auto max-w-6xl space-y-8 px-6">
+//         <div>
+//           <p className="text-sm font-semibold uppercase text-sky-500">
+//             Property Listing
+//           </p>
+//           <h2 className="text-[40px] font-bold text-slate-900">
+//             Add & Manage Properties
+//           </h2>
+//         </div>
+//         {/* PROPERTY FORM */}
+//         <div className="p-6 bg-slate-50 rounded-xl shadow mb-12">
+//           <h3 className="text-xl font-bold mb-4">Add New Property</h3>
+//           <form
+//             onSubmit={createProperty}
+//             className="grid grid-cols-1 md:grid-cols-2 gap-4"
+//           >
+//             <input className="border p-2 rounded"
+//               name="title" placeholder="Property Title"
+//               value={form.title} onChange={handleChange} required />
+//             <input className="border p-2 rounded"
+//               name="location" placeholder="Location"
+//               value={form.location} onChange={handleChange} required />
+//             <input className="border p-2 rounded"
+//               name="beds" placeholder="Beds"
+//               value={form.beds} onChange={handleChange} required />
+//             <input className="border p-2 rounded"
+//               name="baths" placeholder="Baths"
+//               value={form.baths} onChange={handleChange} required />
+//             <input className="border p-2 rounded"
+//               name="area" placeholder="Area (sqft)"
+//               value={form.area} onChange={handleChange} required />
+//             <input className="border p-2 rounded"
+//               name="price" placeholder="Price"
+//               value={form.price} onChange={handleChange} required />
+//             {/* IMAGE FILE */}
+//             <input
+//               type="file"
+//               accept="image/*"
+//               className="border p-2 rounded"
+//               onChange={(e) => setImageFile(e.target.files[0])}
+//             />
+//             {/* IMAGE URL */}
+//             <input
+//               className="border p-2 rounded"
+//               name="image"
+//               placeholder="Or paste image URL"
+//               value={form.image}
+//               onChange={handleChange}
+//             />
+//             <button
+//               className="bg-blue-600 text-white rounded py-2"
+//               type="submit"
+//             >
+//               Create Property
+//             </button>
+//           </form>
+//         </div>
+//         {/* PROPERTY CARDS */}
+//         {loading ? (
+//           <p className="text-center text-gray-600">Loading properties...</p>
+//         ) : (
+//           <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+//             {propertyData.map((property) => (
+//               <article
+//                 key={property._id}
+//                 className="rounded-xl border border-gray-200 bg-white shadow p-4"
+//               >
+//                 <img
+//                   src={property.image}
+//                   alt={property.title}
+//                   className="h-[200px] w-full object-cover rounded-lg"
+//                 />
+//                 <h3 className="mt-4 text-lg font-semibold">{property.title}</h3>
+//                 <p className="text-sm text-gray-500">{property.location}</p>
+//                 <div className="mt-3 flex gap-2 text-xs text-gray-600">
+//                   <span className="border px-3 py-1 rounded">
+//                     {property.bedrooms} Beds
+//                   </span>
+//                   <span className="border px-3 py-1 rounded">
+//                     {property.bathrooms} Baths
+//                   </span>
+//                   <span className="border px-3 py-1 rounded">
+//                     {property.areaSqft} sqft
+//                   </span>
+//                 </div>
+//                 <div className="mt-4 flex items-center justify-between">
+//                   <button className="bg-blue-600 text-white rounded px-4 py-2 text-xs font-semibold">
+//                     {property.price}
+//                   </button>
+//                   <button className="border rounded-full p-2">
+//                     <Heart />
+//                   </button>
+//                 </div>
+//               </article>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     </section>
+//   );
+// };
+// export default Property;
+import React, { useState } from "react";
+import axios from "axios";
+export default function CreateListing() {
   const [form, setForm] = useState({
     title: "",
     location: "",
+    price: "",
     beds: "",
     baths: "",
     area: "",
-    price: "",
-    badge: "Featured",
+    badge: "",
     status: "For Sale",
-    image: ""
   });
-
-  // Image File
-  const [imageFile, setImageFile] = useState(null);
-
-  // Input Change
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [message, setMessage] = useState("");
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
-  // 🔹 Upload Image to Cloudinary
-  const uploadImageToCloudinary = async () => {
-    const data = new FormData();
-    data.append("file", imageFile);
-    data.append("upload_preset", UPLOAD_PRESET);
-
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-      method: "POST",
-      body: data
-    });
-
-    const uploadedImage = await res.json();
-    return uploadedImage.secure_url; 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setPreview(URL.createObjectURL(file));
   };
-
-  // 🔹 Create Property (POST API)
-  const createProperty = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let imageUrl = form.image;
-
-    // Upload file if selected
-    if (imageFile) {
-      imageUrl = await uploadImageToCloudinary();
-    }
-
-    const payload = { ...form, image: imageUrl };
-
+    const fd = new FormData();
+    fd.append("title", form.title);
+    fd.append("location", form.location);
+    fd.append("price", form.price);
+    fd.append("beds", form.beds);
+    fd.append("baths", form.baths);
+    fd.append("area", form.area);
+    fd.append("badge", form.badge);
+    fd.append("status", form.status);
+    if (image) fd.append("image", image);
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      const res = await axios.post("http://192.168.18.29/api/listings", fd, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-
-      const newProperty = await response.json();
-
-      // Add new card to list
-      setPropertyData((prev) => [...prev, newProperty]);
-
-      // Reset form
-      setForm({
-        title: "",
-        location: "",
-        beds: "",
-        baths: "",
-        area: "",
-        price: "",
-        badge: "Featured",
-        status: "For Sale",
-        image: "",
-      });
-
-      setImageFile(null);
-
-    } catch (error) {
-      console.error("Error creating property:", error);
+      setMessage("Listing Created Successfully!");
+      console.log(res.data);
+    } catch (err) {
+      setMessage("Error: " + err.response?.data?.error);
     }
   };
-
-  // 🔹 Fetch All Properties (GET API)
-  const fetchProperties = async () => {
-    try {
-      const response = await fetch(API_URL);
-      if (!response.ok) throw new Error("Failed to fetch");
-
-      const data = await response.json();
-      setPropertyData(data);
-    } catch (error) {
-      console.error("Error fetching properties:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProperties();
-  }, []);
-
   return (
-    <section className="bg-white relative pb-16 py-16">
-      <div className="mx-auto max-w-6xl space-y-8 px-6">
-        
-        {/* Header */}
-        <div>
-          <p className="text-sm font-semibold uppercase text-sky-500">
-            Property Listing
-          </p>
-          <h2 className="text-[40px] font-bold text-slate-900">
-            Add & Manage Properties
-          </h2>
-        </div>
-
-        {/* ==================================
-            PROPERTY CREATION FORM
-        =================================== */}
-        <div className="p-6 bg-slate-50 rounded-xl shadow mb-12">
-          <h3 className="text-xl font-bold mb-4">Add New Property</h3>
-
-          <form onSubmit={createProperty} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            <input className="border p-2 rounded" name="title" placeholder="Property Title"
-              value={form.title} onChange={handleChange} required />
-
-            <input className="border p-2 rounded" name="location" placeholder="Location"
-              value={form.location} onChange={handleChange} required />
-
-            <input className="border p-2 rounded" name="beds" placeholder="Beds"
-              value={form.beds} onChange={handleChange} required />
-
-            <input className="border p-2 rounded" name="baths" placeholder="Baths"
-              value={form.baths} onChange={handleChange} required />
-
-            <input className="border p-2 rounded" name="area" placeholder="Area (ex: 1200 sq)"
-              value={form.area} onChange={handleChange} required />
-
-            <input className="border p-2 rounded" name="price" placeholder="Price (ex: $820,000)"
-              value={form.price} onChange={handleChange} required />
-
-            {/* Image Upload */}
-            <input type="file" accept="image/*"
-              className="border p-2 rounded"
-              onChange={(e) => setImageFile(e.target.files[0])}
-            />
-
-            {/* Optional image URL */}
-            <input className="border p-2 rounded" name="image"
-              placeholder="Or paste image URL"
-              value={form.image} onChange={handleChange} />
-
-            <button className="bg-blue-600 text-white rounded py-2" type="submit">
-              Create Property
-            </button>
-          </form>
-        </div>
-
-        {/* ==================================
-            PROPERTY CARDS
-        =================================== */}
-        {loading ? (
-          <p className="text-center text-gray-600">Loading properties...</p>
-        ) : (
-          <div className="grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-            {propertyData.map((property) => (
-              <article
-                key={property.id}
-                className="rounded-2xl border border-gray-200 bg-white shadow p-4"
-              >
-                <div className="relative w-full overflow-hidden rounded-xl">
-                  <img
-                    src={property.image}
-                    alt={property.title}
-                    className="h-[200px] w-full object-cover"
-                  />
-
-                  <div className="absolute left-3 top-3 flex gap-2 text-xs">
-                    <span className="bg-white px-3 py-1 rounded">{property.badge}</span>
-                    <span className="bg-white px-3 py-1 rounded">{property.status}</span>
-                  </div>
-                </div>
-
-                <h3 className="mt-4 text-lg font-semibold">{property.title}</h3>
-                <p className="text-sm text-gray-500">{property.location}</p>
-
-                <div className="mt-3 flex gap-2 text-xs text-gray-600">
-                  <span className="border px-3 py-1 rounded">{property.beds} Beds</span>
-                  <span className="border px-3 py-1 rounded">{property.baths} Baths</span>
-                  <span className="border px-3 py-1 rounded">{property.area}</span>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between">
-                  <button className="bg-blue-600 text-white rounded px-4 py-2 text-xs font-semibold">
-                    {property.price}
-                  </button>
-
-                  <button className="border rounded-full p-2">
-                    <Heart />
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
+    <div className="max-w-xl relative mb-[100px] mx-auto p-6 space-y-4">
+      <h1 className="text-2xl font-bold">Create Listing</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          className="w-full border p-2 rounded"
+          value={form.title}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+          className="w-full border p-2 rounded"
+          value={form.location}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          className="w-full border p-2 rounded"
+          value={form.price}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="beds"
+          placeholder="Bedrooms"
+          className="w-full border p-2 rounded"
+          value={form.beds}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="baths"
+          placeholder="Bathrooms"
+          className="w-full border p-2 rounded"
+          value={form.baths}
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="area"
+          placeholder="Area Sqft"
+          className="w-full border p-2 rounded"
+          value={form.area}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="badge"
+          placeholder="Badge (Featured, New, Hot)"
+          className="w-full border p-2 rounded"
+          value={form.badge}
+          onChange={handleChange}
+        />
+        <select
+          name="status"
+          className="w-full border p-2 rounded"
+          value={form.status}
+          onChange={handleChange}
+        >
+          <option value="For Sale">For Sale</option>
+          <option value="For Rent">For Rent</option>
+          <option value="Sold">Sold</option>
+        </select>
+        {/* IMAGE UPLOAD */}
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {preview && (
+          <img
+            src={preview}
+            alt="preview"
+            className="w-32 h-32 object-cover border rounded"
+          />
         )}
-      </div>
-    </section>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded">
+          Create Listing
+        </button>
+      </form>
+      {message && <p className="text-green-600 font-semibold">{message}</p>}
+    </div>
   );
-};
+}
 
-export default Property;
+
+
+
+
+
+
+
