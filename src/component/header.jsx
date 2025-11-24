@@ -166,9 +166,13 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex items-center gap-5">
-          <button className="text-primary font-poppin font-medium hover:text-primary transition">
-            Login
-          </button>
+         <NavLink
+  to="/dashboard"
+  className="text-primary font-poppin font-medium hover:text-primary transition"
+>
+  Login
+</NavLink>
+
 
           <button className="bg-primary font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-primary transition">
             Sign Up
@@ -234,9 +238,13 @@ const Navbar = () => {
 
           {/* Mobile Buttons */}
           <div className="flex flex-col items-center gap-4 mt-6">
-            <button className="text-primary w-full text-lg font-poppin font-medium hover:bg-primary/10 py-2 rounded">
-              Login
-            </button>
+          <NavLink
+  to="/dashboard"
+  className="text-primary font-poppin font-medium hover:text-primary transition"
+>
+  Login
+</NavLink>
+
 
             <button className="bg-primary w-full text-white font-poppin text-lg font-medium px-6 py-2 rounded-lg shadow hover:bg-primary/90">
               Sign Up
