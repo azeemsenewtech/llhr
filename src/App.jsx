@@ -11,26 +11,58 @@ import ContactPage from "./pages/contactPage";
 import TermsCondition from "./pages/termsCondition";
 import SellPage from "./pages/sellPage";
 
+// Dashboard pages
+import DashboardLayout from "./pages/dashboard/dashboardLayout";
+import DashboardHome from "./pages/dashboard/dashboardHome";
+
+// Public layout wrapper
+import { Outlet } from "react-router-dom";
+import PropertyListingForm from "./pages/dashboard/listItem";
+import Properties from "./pages/dashboard/my-properties";
+import OfferPage from "./pages/dashboard/offerDashboard";
+import Contract from "./pages/dashboard/contract";
+import PaymentPage from "./pages/dashboard/paymentPage";
+
+function PublicLayout() {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   return (
     <>
-      
       <BrowserRouter>
-      <Navbar />
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/buy" element={<Buy/>}/>
-         <Route path="/rent" element={<Rent/>}/>
-         <Route path="/detail" element={<Detail/>}/>
-         <Route path="/contact" element={<ContactPage/>}/>
-         <Route path="/terms" element={<TermsCondition/>}/>
-          <Route path="/sell" element={<SellPage/>}/>
-          
-        
+
+          {/* PUBLIC ROUTES WITH NAVBAR + FOOTER */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/buy" element={<Buy />} />
+            <Route path="/rent" element={<Rent />} />
+            <Route path="/detail" element={<Detail />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<TermsCondition />} />
+            <Route path="/sell" element={<SellPage />} />
+          </Route>
+
+          {/* DASHBOARD ROUTES WITHOUT NAVBAR + FOOTER */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<DashboardHome />} />
+       <Route path="listItem" element={<PropertyListingForm />} />
+        <Route path="my-property" element={<Properties/>} />
+         <Route path="offers" element={<OfferPage/>} />
+         <Route path="contracts" element={<Contract/>} />
+           <Route path="payments" element={<PaymentPage/>} />
+           
+          </Route>
+
         </Routes>
       </BrowserRouter>
-      <Footer/>
     </>
   );
 }
