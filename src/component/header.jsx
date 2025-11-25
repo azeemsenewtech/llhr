@@ -97,7 +97,7 @@
 //           ))}
 
 //           {/* Buttons */}
-//           <div className="flex flex-col items-center gap-4 mt-6">  
+//           <div className="flex flex-col items-center gap-4 mt-6">
 //           <button className="text-primary w-full text-lg font-poppin font-medium">
 //             Login
 //           </button>
@@ -129,10 +129,14 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-white shadow-sm border-b border-blue-200 relative font-sans">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between py-6 px-6">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <img src="/assets/image/headlogo.png" alt="Logo" className="h-10 object-contain" />
+          <img
+            src="/assets/image/headlogo.png"
+            alt="Logo"
+            className="h-10 object-contain"
+          />
         </div>
 
         {/* Desktop Menu */}
@@ -155,7 +159,11 @@ const Navbar = () => {
                 ${isActive ? "after:w-full" : "after:w-0 hover:after:w-full"}
 
                 /* Text Styling */
-                ${isActive ? "text-primary font-semibold" : "text-gray-700 hover:text-primary"}
+                ${
+                  isActive
+                    ? "text-primary font-semibold"
+                    : "text-gray-700 hover:text-primary"
+                }
                 `
               }
             >
@@ -165,14 +173,13 @@ const Navbar = () => {
         </ul>
 
         {/* Desktop Buttons */}
-        <div className="hidden lg:flex items-center gap-5">
-         <NavLink
-  to="/dashboard"
-  className="text-primary font-poppin font-medium hover:text-primary transition"
->
-  Login
-</NavLink>
-
+        <div className="hidden lg:flex items-center gap-6">
+          <NavLink
+            to="/dashboard"
+            className="text-primary font-poppin font-medium hover:text-primary transition"
+          >
+            Login
+          </NavLink>
 
           <button className="bg-primary font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-primary transition">
             Sign Up
@@ -238,13 +245,12 @@ const Navbar = () => {
 
           {/* Mobile Buttons */}
           <div className="flex flex-col items-center gap-4 mt-6">
-          <NavLink
-  to="/dashboard"
-  className="text-primary font-poppin font-medium hover:text-primary transition"
->
-  Login
-</NavLink>
-
+            <NavLink
+              to="/dashboard"
+              className="text-primary font-poppin font-medium hover:text-primary transition"
+            >
+              Login
+            </NavLink>
 
             <button className="bg-primary w-full text-white font-poppin text-lg font-medium px-6 py-2 rounded-lg shadow hover:bg-primary/90">
               Sign Up

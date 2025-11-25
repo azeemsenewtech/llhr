@@ -375,13 +375,45 @@
 // };
 
 // export default PropertyListingForm;
-import React, { useState } from 'react';
-import { Home, List, MapPin, FileText, Eye, Upload, ChevronDown, CheckCircle2 } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { 
+  Home, List, MapPin, FileText, Eye, Upload, 
+  ChevronDown, CheckCircle2, Bed, Bath, 
+  Maximize, Wifi, Car,  ShieldCheck, X, ImageIcon
+} from 'lucide-react';
 
 const ListPropertyForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  
+  // Centralized State
+  const [formData, setFormData] = useState({
+    // Step 1
+    propertyType: '',
+    title: '',
+    description: '',
+    price: '',
+    coverImage: null,        // Stores the File object
+    coverImagePreview: null, // Stores the temporary URL for display
+    
+    // Step 2
+    bedrooms: '',
+    bathrooms: '',
+    area: '',
+    amenities: [],
+    
+    // Step 3
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    
+    // Step 4
+    deedFile: null,
+    deedFileName: '',
+    idFile: null,
+    idFileName: ''
+  });
 
-  // Configuration for the steps
   const steps = [
     { id: 1, label: 'Basic Details', icon: Home },
     { id: 2, label: 'Features & Amenities', icon: List },
@@ -390,33 +422,480 @@ const ListPropertyForm = () => {
     { id: 5, label: 'Review & Publish', icon: Eye },
   ];
 
-  // Calculate progress percentage
-  // If we are on step 1 of 5, the bar should be 20% full to cover the first tab area.
-  const progressWidth = (currentStep / steps.length) * 100;
+  // --- Handlers ---
+
+  // Handle Text/Select Inputs
+  const handleChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  // Handle File Uploads (Images & Docs)
+  const handleFileChange = (field, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      if (field === 'coverImage') {
+        // Create preview URL for images
+        const previewUrl = URL.createObjectURL(file);
+        setFormData(prev => ({ 
+          ...prev, 
+          [field]: file, 
+          [`${field}Preview`]: previewUrl 
+        }));
+      } else {
+        // For documents, just store file and name
+        setFormData(prev => ({ 
+          ...prev, 
+          [field]: file, 
+          [`${field}Name`]: file.name 
+        }));
+      }
+    }
+  };
+
+  // Remove File
+  const removeFile = (field) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: null,
+      [`${field}Preview`]: null,
+      [`${field}Name`]: ''
+    }));
+  };
+
+  // Toggle Amenities
+  const toggleAmenity = (amenity) => {
+    setFormData(prev => {
+      const exists = prev.amenities.includes(amenity);
+      return {
+        ...prev,
+        amenities: exists 
+          ? prev.amenities.filter(a => a !== amenity)
+          : [...prev.amenities, amenity]
+      };
+    });
+  };
 
   const handleNext = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      console.log('Final Submission Data:', formData);
+      alert('Property Published! Check console for data object.');
     }
   };
 
-  const handleStepClick = (id) => {
-    setCurrentStep(id);
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
-  return (
-    <div className="min-h-screen rounded-xl bg-white p-4 md:p-10 font-sans text-slate-800">
+  const progressWidth = (currentStep / steps.length) * 100;
+
+  // --- SUB-COMPONENTS ---
+
+  const Step1BasicDetails = () => (
+    <div className="space-y-6 animate-fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Property Type</label>
+          <div className="relative">
+            <select 
+              value={formData.propertyType}
+              onChange={(e) => handleChange('propertyType', e.target.value)}
+              className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
+            >
+              <option value="">Select type</option>
+              <option value="Apartment">Apartment</option>
+              <option value="House">House</option>
+              <option value="Villa">Villa</option>
+              <option value="Commercial">Commercial</option>
+            </select>
+            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Price ($)</label>
+          <input 
+            type="number"
+            value={formData.price}
+            onChange={(e) => handleChange('price', e.target.value)}
+            placeholder="e.g. 250000" 
+            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Property Title</label>
+        <input 
+          type="text"
+          value={formData.title}
+          onChange={(e) => handleChange('title', e.target.value)}
+          placeholder="e.g. Luxury Apartment in Downtown" 
+          className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Description</label>
+        <textarea 
+          rows="4"
+          value={formData.description}
+          onChange={(e) => handleChange('description', e.target.value)}
+          placeholder="Describe your property..." 
+          className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all resize-none"
+        ></textarea>
+      </div>
+
+      {/* Image Upload Section */}
+      <div className="space-y-2">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Cover Image</label>
+        
+        {!formData.coverImagePreview ? (
+          <label className="border-2 border-dashed border-gray-200 rounded-xl py-8 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
+            <input 
+              type="file" 
+              accept="image/*" 
+              onChange={(e) => handleFileChange('coverImage', e)} 
+              className="hidden" 
+            />
+            <Upload className="text-gray-400 group-hover:text-[#1787B1] mb-2" size={24} />
+            <p className="text-xs text-slate-500 group-hover:text-[#1787B1]">Click to upload cover image</p>
+            <p className="text-[10px] text-slate-400 mt-1">PNG, JPG up to 5MB</p>
+          </label>
+        ) : (
+          <div className="relative w-full h-64 rounded-xl overflow-hidden border border-gray-200 group">
+            <img 
+              src={formData.coverImagePreview} 
+              alt="Cover Preview" 
+              className="w-full h-full object-cover"
+            />
+            <button 
+              onClick={() => removeFile('coverImage')}
+              className="absolute top-2 right-2 p-1 bg-white rounded-full shadow-md hover:bg-red-50 text-slate-600 hover:text-red-500 transition-colors"
+            >
+              <X size={20} />
+            </button>
+            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+              {formData.coverImage.name}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const Step2Features = () => (
+    <div className="space-y-8 animate-fade-in">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
+            <Bed size={14} /> Bedrooms
+          </label>
+          <div className="relative">
+             <select 
+               value={formData.bedrooms}
+               onChange={(e) => handleChange('bedrooms', e.target.value)}
+               className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:border-[#1787B1] focus:outline-none"
+             >
+               <option value="">Select</option>
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3">3</option>
+               <option value="4+">4+</option>
+             </select>
+             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
+            <Bath size={14} /> Bathrooms
+          </label>
+          <div className="relative">
+             <select 
+                value={formData.bathrooms}
+                onChange={(e) => handleChange('bathrooms', e.target.value)}
+                className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:border-[#1787B1] focus:outline-none"
+             >
+               <option value="">Select</option>
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option value="3+">3+</option>
+             </select>
+             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide flex items-center gap-2">
+            <Maximize size={14} /> Area (Sq Ft)
+          </label>
+          <input 
+            type="number"
+            value={formData.area}
+            onChange={(e) => handleChange('area', e.target.value)}
+            placeholder="e.g. 1200"
+            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:border-[#1787B1] focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Amenities</label>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { id: 'wifi', label: 'Free WiFi', icon: Wifi },
+            { id: 'parking', label: 'Parking', icon: Car },
+            { id: 'ac', label: 'Air Conditioning', icon: Car },
+            { id: 'security', label: '24/7 Security', icon: ShieldCheck },
+          ].map((item) => (
+            <div 
+              key={item.id}
+              onClick={() => toggleAmenity(item.id)}
+              className={`
+                flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer transition-all select-none
+                ${formData.amenities.includes(item.id) 
+                  ? 'border-[#1787B1] bg-blue-50 text-[#1787B1]' 
+                  : 'border-gray-100 bg-gray-50 text-gray-500 hover:border-gray-300'}
+              `}
+            >
+              <item.icon size={20} className="mb-2" />
+              <span className="text-xs font-semibold">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const Step3Location = () => (
+    <div className="space-y-6 animate-fade-in">
+      <div className="space-y-2">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Street Address</label>
+        <input 
+          type="text"
+          value={formData.address}
+          onChange={(e) => handleChange('address', e.target.value)}
+          placeholder="e.g. 123 Main Street" 
+          className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">City</label>
+          <input 
+            type="text"
+            value={formData.city}
+            onChange={(e) => handleChange('city', e.target.value)}
+            placeholder="Los Angeles" 
+            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">State/Province</label>
+          <input 
+            type="text"
+            value={formData.state}
+            onChange={(e) => handleChange('state', e.target.value)}
+            placeholder="California" 
+            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Zip Code</label>
+          <input 
+            type="text"
+            value={formData.zip}
+            onChange={(e) => handleChange('zip', e.target.value)}
+            placeholder="90001" 
+            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+          />
+        </div>
+      </div>
+
+      <div className="w-full h-48 bg-gray-100 rounded-xl flex flex-col items-center justify-center text-gray-400 border border-gray-200">
+        <MapPin size={32} className="mb-2 opacity-50" />
+        <span className="text-sm font-medium">Map Preview will appear here</span>
+      </div>
+    </div>
+  );
+
+  const Step4Documents = () => (
+    <div className="space-y-6 animate-fade-in">
+      <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
+        <p className="text-sm text-blue-700">
+          Please upload legal documents to verify property ownership. All files are encrypted.
+        </p>
+      </div>
+
+      {/* Deed Upload */}
+      <div className="space-y-4">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Property Deed (Nota Simple)</label>
+        
+        {!formData.deedFile ? (
+          <label className="border-2 border-dashed border-gray-200 rounded-xl py-10 px-6 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
+            <input 
+              type="file" 
+              accept=".pdf,.doc,.docx"
+              onChange={(e) => handleFileChange('deedFile', e)} 
+              className="hidden" 
+            />
+            <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
+              <Upload className="text-gray-400 group-hover:text-[#1787B1]" size={24} />
+            </div>
+            <p className="text-sm font-bold text-slate-700 group-hover:text-[#1787B1]">Click to upload or drag and drop</p>
+            <p className="text-xs text-gray-400 mt-2">PDF up to 10MB</p>
+          </label>
+        ) : (
+          <div className="flex items-center justify-between p-4 border border-blue-200 bg-blue-50 rounded-lg">
+             <div className="flex items-center gap-3">
+               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-blue-500">
+                 <FileText size={20} />
+               </div>
+               <div>
+                 <p className="text-sm font-bold text-slate-700">{formData.deedFileName}</p>
+                 <p className="text-xs text-green-600 font-semibold">Upload Complete</p>
+               </div>
+             </div>
+             <button 
+                onClick={() => removeFile('deedFile')} 
+                className="p-2 text-gray-400 hover:text-red-500"
+             >
+               <X size={18} />
+             </button>
+          </div>
+        )}
+      </div>
+
+      {/* ID Upload */}
+      <div className="space-y-4">
+        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Owner ID / Passport</label>
+        
+        {!formData.idFile ? (
+          <label className="border-2 border-dashed border-gray-200 rounded-xl py-6 px-6 flex flex-row items-center justify-center gap-4 text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
+             <input 
+               type="file" 
+               onChange={(e) => handleFileChange('idFile', e)} 
+               className="hidden" 
+             />
+             <Upload className="text-gray-400 group-hover:text-[#1787B1]" size={20} />
+             <span className="text-sm font-medium text-slate-600 group-hover:text-[#1787B1]">Upload ID Document</span>
+          </label>
+        ) : (
+          <div className="flex items-center justify-between p-4 border border-blue-200 bg-blue-50 rounded-lg">
+             <div className="flex items-center gap-3">
+               <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-blue-500">
+                 <ShieldCheck size={20} />
+               </div>
+               <div>
+                 <p className="text-sm font-bold text-slate-700">{formData.idFileName}</p>
+                 <p className="text-xs text-green-600 font-semibold">Upload Complete</p>
+               </div>
+             </div>
+             <button 
+                onClick={() => removeFile('idFile')} 
+                className="p-2 text-gray-400 hover:text-red-500"
+             >
+               <X size={18} />
+             </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const Step5Review = () => (
+    <div className="animate-fade-in">
+      <h3 className="text-slate-800 font-bold mb-6">Review your listing</h3>
       
+      <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 space-y-6">
+        
+        {/* Cover Image & Basic Info */}
+        <div className="flex flex-col md:flex-row gap-6 pb-6 border-b border-gray-200">
+          <div className="w-full md:w-32 h-32 rounded-lg bg-gray-200 flex-shrink-0 overflow-hidden">
+             {formData.coverImagePreview ? (
+               <img src={formData.coverImagePreview} alt="Cover" className="w-full h-full object-cover" />
+             ) : (
+               <div className="w-full h-full flex items-center justify-center text-gray-400">
+                 <ImageIcon size={24} />
+               </div>
+             )}
+          </div>
+          <div className="flex-1">
+            <div className="flex justify-between items-start mb-2">
+              <h4 className="font-bold text-slate-700 text-lg">{formData.title || 'Untitled Property'}</h4>
+              <span className="bg-[#1787B1] text-white text-xs px-2 py-1 rounded font-bold">{formData.propertyType || 'Type N/A'}</span>
+            </div>
+            <p className="text-sm text-gray-500 mb-2 line-clamp-2">{formData.description || 'No description provided.'}</p>
+            <p className="text-xl font-bold text-[#1787B1]">${formData.price || '0'}</p>
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-6 border-b border-gray-200">
+           <div>
+             <span className="text-xs text-gray-400 uppercase font-bold block">Bedrooms</span>
+             <span className="text-sm font-bold text-slate-700">{formData.bedrooms || '-'}</span>
+           </div>
+           <div>
+             <span className="text-xs text-gray-400 uppercase font-bold block">Bathrooms</span>
+             <span className="text-sm font-bold text-slate-700">{formData.bathrooms || '-'}</span>
+           </div>
+           <div>
+             <span className="text-xs text-gray-400 uppercase font-bold block">Area</span>
+             <span className="text-sm font-bold text-slate-700">{formData.area ? `${formData.area} sq ft` : '-'}</span>
+           </div>
+           <div>
+             <span className="text-xs text-gray-400 uppercase font-bold block">Amenities</span>
+             <span className="text-sm font-bold text-slate-700">{formData.amenities.length} Selected</span>
+           </div>
+        </div>
+
+        {/* Location */}
+        <div>
+           <span className="text-xs text-gray-400 uppercase font-bold block mb-1">Location</span>
+           <div className="flex items-start gap-2 text-slate-700">
+             <MapPin size={16} className="mt-0.5 text-[#1787B1]" />
+             <span className="text-sm font-medium">
+                {formData.address}, {formData.city}, {formData.state} {formData.zip}
+                {(!formData.address && !formData.city) && "No address provided"}
+             </span>
+           </div>
+        </div>
+        
+        {/* Documents Summary */}
+        <div>
+           <span className="text-xs text-gray-400 uppercase font-bold block mb-2">Documents Ready</span>
+           <div className="flex gap-2">
+              <span className={`text-xs px-2 py-1 rounded border ${formData.deedFile ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'}`}>
+                {formData.deedFile ? 'Deed Uploaded' : 'Deed Missing'}
+              </span>
+              <span className={`text-xs px-2 py-1 rounded border ${formData.idFile ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'}`}>
+                {formData.idFile ? 'ID Uploaded' : 'ID Missing'}
+              </span>
+           </div>
+        </div>
+
+      </div>
+      
+      <div className="flex items-center gap-2 mt-6 p-4 bg-yellow-50 border border-yellow-100 rounded-lg text-yellow-700 text-sm">
+        <div className="min-w-[4px] h-4 bg-yellow-400 rounded-full"></div>
+        <p>By clicking publish, you agree to our terms of service and property listing guidelines.</p>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-white p-4 md:p-10 font-sans text-slate-800">
       <div className="max-w-6xl mx-auto">
         
-        {/* Header Title */}
         <h1 className="text-xl md:text-2xl font-bold text-slate-800 mb-6">List New Property</h1>
 
-        {/* --- Navigation & Progress Section --- */}
-        <div className="mb-10 ">
-          
-          {/* Progress Line (Positioned ABOVE the tabs) */}
+        {/* --- Navigation --- */}
+        <div className="mb-10">
           <div className="w-full h-2 bg-gray-100 rounded-full mb-8 relative overflow-hidden">
             <div 
               className="h-full bg-[#1787B1] transition-all duration-500 ease-in-out"
@@ -424,43 +903,27 @@ const ListPropertyForm = () => {
             ></div>
           </div>
 
-          {/* Icons / Tabs Row */}
-          <div className="flex justify-between items-start px-2 md:px-10">
+          <div className="flex flex-wrap justify-between items-start px-2 md:px-10">
             {steps.map((step) => {
               const isActive = step.id === currentStep;
               const isCompleted = step.id < currentStep;
 
               return (
-                <div 
-                  key={step.id} 
-                  onClick={() => handleStepClick(step.id)}
-                  className="flex flex-col items-center group cursor-pointer w-24 md:w-32"
-                >
-                  {/* Icon Circle */}
+                <div key={step.id} className="flex flex-col items-center w-20 md:w-32">
                   <div 
                     className={`
-                      w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 mb-3
+                      w-10 h-10 md:w-12 md:h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 mb-3
                       ${isActive 
                         ? 'border-[#1787B1] text-[#1787B1] bg-blue-50' 
                         : isCompleted
                           ? 'border-[#1787B1] text-[#1787B1] bg-white'
-                          : 'border-gray-200 text-gray-400 bg-white hover:border-gray-300'
+                          : 'border-gray-200 text-gray-400 bg-white'
                       }
                     `}
                   >
-                    {isCompleted ? (
-                      <CheckCircle2 size={20} />
-                    ) : (
-                      <step.icon size={20} strokeWidth={isActive ? 2 : 1.5} />
-                    )}
+                    {isCompleted ? <CheckCircle2 size={20} /> : <step.icon size={20} strokeWidth={isActive ? 2 : 1.5} />}
                   </div>
-                  
-                  {/* Label */}
-                  <span 
-                    className={`text-[10px] md:text-xs font-semibold text-center transition-colors duration-300
-                      ${isActive ? 'text-[#1787B1]' : 'text-gray-400'}
-                    `}
-                  >
+                  <span className={`text-[10px] md:text-xs font-semibold text-center transition-colors duration-300 ${isActive ? 'text-[#1787B1]' : 'text-gray-400'}`}>
                     {step.label}
                   </span>
                 </div>
@@ -469,90 +932,43 @@ const ListPropertyForm = () => {
           </div>
         </div>
 
-        {/* --- Form Container --- */}
+        {/* --- Form Body --- */}
         <div className="border border-gray-100 rounded-xl p-6 md:p-10 shadow-sm bg-white mt-4">
-          
-          {/* Section Header */}
           <h2 className="text-lg font-bold text-[#1787B1] mb-8 flex items-center gap-2">
             Step {currentStep}: {steps[currentStep - 1].label}
           </h2>
 
-          <form className="space-y-8 max-w-4xl">
-            
-            {/* Property Type */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Property Type</label>
-              <div className="relative">
-                <select className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all cursor-pointer">
-                  <option>Select property type</option>
-                  <option>Apartment</option>
-                  <option>House</option>
-                  <option>Villa</option>
-                  <option>Commercial</option>
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
-              </div>
-            </div>
-
-            {/* Property Title */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Property Title</label>
-              <input 
-                type="text" 
-                placeholder="e.g. Luxury Apartment in Downtown" 
-                className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
-              />
-            </div>
-
-            {/* Description */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Description</label>
-              <textarea 
-                rows="4"
-                placeholder="Describe your property..." 
-                className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all resize-none"
-              ></textarea>
-            </div>
-
-            {/* Images Upload */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Images Upload</label>
-              <div className="border-2 border-dashed border-gray-200 rounded-xl py-12 px-6 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
-                <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
-                  <Upload className="text-gray-400 group-hover:text-[#1787B1]" size={24} />
-                </div>
-                <p className="text-sm font-bold text-slate-700">Click to upload or drag and drop</p>
-                <p className="text-xs text-gray-400 mt-2">PNG, JPG up to 10MB</p>
-              </div>
-            </div>
-
-            {/* Nota Simple */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Nota Simple</label>
-              <div className="border-2 border-dashed border-gray-200 rounded-xl py-12 px-6 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
-                 <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
-                  <Upload className="text-gray-400 group-hover:text-[#1787B1]" size={24} />
-                </div>
-                <p className="text-sm font-bold text-slate-700">Click to upload or drag and drop</p>
-                <p className="text-xs text-gray-400 mt-2">PDF up to 10MB</p>
-              </div>
-            </div>
-
-          </form>
-
-          {/* Footer Actions */}
-          <div className="flex justify-end gap-4 mt-12 pt-6 border-t border-gray-50">
-            <button className="px-6 py-2.5 rounded-lg border border-gray-200 text-sm font-bold text-slate-600 hover:bg-gray-50 hover:text-slate-800 transition-colors">
-              Save as Draft
-            </button>
-            <button 
-              onClick={handleNext}
-              className="px-8 py-2.5 rounded-lg bg-[#1787B1] text-white text-sm font-bold hover:bg-[#136f91] transition-all shadow-md hover:shadow-lg"
-            >
-              {currentStep === steps.length ? 'Publish' : 'Next'}
-            </button>
+          <div className="max-w-4xl min-h-[400px]">
+            {currentStep === 1 && <Step1BasicDetails />}
+            {currentStep === 2 && <Step2Features />}
+            {currentStep === 3 && <Step3Location />}
+            {currentStep === 4 && <Step4Documents />}
+            {currentStep === 5 && <Step5Review />}
           </div>
 
+          <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-50">
+            <button 
+              onClick={handleBack}
+              disabled={currentStep === 1}
+              className={`px-6 py-2.5 rounded-lg border border-gray-200 text-sm font-bold text-slate-600 transition-colors 
+                ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 hover:text-slate-800'}
+              `}
+            >
+              Back
+            </button>
+
+            <div className="flex gap-4">
+              <button className="hidden md:block px-6 py-2.5 rounded-lg border border-gray-200 text-sm font-bold text-slate-600 hover:bg-gray-50 hover:text-slate-800 transition-colors">
+                Save Draft
+              </button>
+              <button 
+                onClick={handleNext}
+                className="px-8 py-2.5 rounded-lg bg-[#1787B1] text-white text-sm font-bold hover:bg-[#136f91] transition-all shadow-md hover:shadow-lg"
+              >
+                {currentStep === steps.length ? 'Publish Listing' : 'Next Step'}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

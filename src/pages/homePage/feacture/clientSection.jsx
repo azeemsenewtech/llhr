@@ -84,12 +84,12 @@ import React from 'react';
 
 const Testimonials = () => {
   return (
-    <section className="relative w-full mb-16 min-h-screen bg-slate-50 overflow-hidden flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
+    <section className="relative w-full  mb-16 min-h-screen bg-slate-50 overflow-hidden flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
       
       {/* Background Faint Overlay (Optional texture effect) */}
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=20')] opacity-5 bg-cover bg-center pointer-events-none mix-blend-multiply" />
 
-      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-6xl pb-16 w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         
         {/* LEFT COLUMN: Text Content */}
         <div className="relative">

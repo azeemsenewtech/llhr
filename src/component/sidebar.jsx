@@ -113,7 +113,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="min-h-screen  w-[280px] bg-[#1787B1] text-white hidden lg:flex flex-col p-5 font-sans rounded-r-3xl">
+    <div className="min-h-screen  w-[280px] bg-[#1787B1] absolute md:relative text-white hidden lg:flex flex-col p-5 font-sans rounded-r-3xl">
       
       {/* Logo Section */}
       <div className="flex items-center justify-center gap-3 p-8 mb-10 mt-4">

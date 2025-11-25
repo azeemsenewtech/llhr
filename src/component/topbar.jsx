@@ -8,7 +8,7 @@ const Header = () => {
       {/* Left Section: Title & Greeting */}
       <div className="xl:flex hidden flex-col gap-1 text-left">
         <div className="flex items-center gap-2">
-          <h1 className="text-xl md:text-2xl font-bold text-slate-800">
+          <h1 className="text-xl md:text-2xl font-bold animate-pulse text-slate-800">
             Owner Dashboard
           </h1>
           <span className="text-xl md:text-2xl animate-pulse">👋</span>

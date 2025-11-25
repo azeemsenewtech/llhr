@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="   bg-primary text-white">
       
-      <div className=" bg-primary relative px-10 w-[80%] mx-auto rounded-br-[0px] -mt-[100px] z-20  rounded-[38px] border-2 border-white bg-white/15 p-8 py-10 ">
+      <div className=" bg-primary relative px-10 w-[80%] mx-auto rounded-br-[0px] -mt-[150px] z-20  rounded-[38px] border-2 border-white bg-white/15 p-8 py-16 ">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="space-y-3">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/75">
@@ -30,13 +30,13 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      <div className="relative mx-auto max-w-6xl px-6 pb-12 pt-10 space-y-12">
+      <div className="relative  px-6 pb-6 pt-10 space-y-12">
        
 
-        <div className="grid gap-8 md:grid-cols-4">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 text-2xl font-bold">
-              <img src="/assets/icon/footerlogo.svg" alt="Senev Logo" className="h w-16 object-contain" />
+        <div className="grid w-full pl-16 p-10 gap-16 md:grid-cols-4">
+          <div className="space-y-4 ">
+            <div className="flex items-center  gap-3 text-2xl font-bold">
+              <img src="/assets/image/logo.png" alt="Senev Logo" className="h-16 " />
             </div>
             <p className="text-sm text-white/80">
               AI-powered real estate platform connecting tenants and owners with trust,
@@ -46,10 +46,10 @@ const Footer = () => {
 
           {Object.entries(footerLinks).map(([section, items]) => (
             <div key={section}>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
+              <p className="text-lg font-semibold uppercase tracking-[0.2em] text-white">
                 {section.charAt(0).toUpperCase() + section.slice(1)}
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-white/85">
+              <ul className="mt-4 space-y-2 text-sm text-white">
                 {items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

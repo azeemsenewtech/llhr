@@ -22,6 +22,8 @@ import Properties from "./pages/dashboard/my-properties";
 import OfferPage from "./pages/dashboard/offerDashboard";
 import Contract from "./pages/dashboard/contract";
 import PaymentPage from "./pages/dashboard/paymentPage";
+import FinancialPage from "./pages/dashboard/financialPage";
+import ChatPage from "./pages/chatPage";
 
 function PublicLayout() {
   return (
@@ -58,6 +60,8 @@ function App() {
          <Route path="offers" element={<OfferPage/>} />
          <Route path="contracts" element={<Contract/>} />
            <Route path="payments" element={<PaymentPage/>} />
+           <Route path="insights" element={<FinancialPage/>} />
+           <Route path="messages" element={<ChatPage/>} />
            
           </Route>
 

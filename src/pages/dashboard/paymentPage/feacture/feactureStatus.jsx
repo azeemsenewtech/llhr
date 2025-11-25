@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 
 import PaymentCard from './paymentCard';
+import PropertyCard from './payment';
 
 const PropertyDashboard = () => {
   // Mock Data matching the image
@@ -118,7 +119,7 @@ const PropertyDashboard = () => {
         </div>
       </div>
 <PaymentCard/>
-    
+    <PropertyCard/>
       
     </div>
   );

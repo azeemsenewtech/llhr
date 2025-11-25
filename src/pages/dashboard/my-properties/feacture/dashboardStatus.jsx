@@ -14,7 +14,7 @@ const DashboardStats = () => {
   return (
     <div className="w-full px-1 py-6 bg-gray-50">
       {/* Responsive Grid: 1 col mobile, 2 col tablet, 3 col laptop, 6 col desktop */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 xl:grid-cols-6 gap-2 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-2 max-w-7xl mx-auto">
         {statsData.map((stat, index) => (
           <StatCard 
             key={index} 

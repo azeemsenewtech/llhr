@@ -88,12 +88,12 @@ const PropertyDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen rounded-xl bg-white p-8 font-sans">
+    <div className="min-h-screen rounded-xl bg-white p-4 md:p-8 font-sans">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <h1 className="text-2xl font-bold text-[#2d8cbb]">All Properties</h1>
         
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
           {/* Search Bar */}
           <div className="relative flex-grow md:flex-grow-0">
             <input 
