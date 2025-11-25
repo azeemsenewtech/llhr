@@ -79,7 +79,7 @@
 // };
 
 // export default Sidebar;
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
   PlusCircle, 
@@ -91,11 +91,12 @@ import {
   Folder, 
   MessageSquare, 
   Settings, 
-  LogOut 
+  LogOut, 
+  X
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({ show, setShow }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -113,8 +114,10 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="min-h-screen  w-[280px] bg-[#1787B1] absolute md:relative text-white hidden lg:flex flex-col p-5 font-sans rounded-r-3xl">
-      
+    <div className={`min-h-screen z-10 w-[280px] bg-[#1787B1] absolute md:relative text-white  lg:flex flex-col p-5 font-sans rounded-r-3xl${show ? '' : ' hidden'}`}>
+     
+      <X className="absolute top-4 right-4 text-white text-2xl font-bold cursor-pointer lg:hidden"
+      onClick={() => setShow(false)}/>
       {/* Logo Section */}
       <div className="flex items-center justify-center gap-3 p-8 mb-10 mt-4">
         <img className='h-10' src="/assets/image/logo.png" alt='logo'/>

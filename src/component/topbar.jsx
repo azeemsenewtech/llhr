@@ -1,12 +1,13 @@
 import React from 'react';
-import { Search } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 
-const Header = () => {
+const Header = ({ show, setShow }) => {
   return (
     <header className="w-full bg-white p-4 md:px-8 md:py-5 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 border-b border-gray-50">
       
-      {/* Left Section: Title & Greeting */}
+      <Menu onClick={() => setShow(!show)} />
       <div className="xl:flex hidden flex-col gap-1 text-left">
+    
         <div className="flex items-center gap-2">
           <h1 className="text-xl md:text-2xl font-bold animate-pulse text-slate-800">
             Owner Dashboard

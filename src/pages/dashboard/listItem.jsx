@@ -505,7 +505,7 @@ const ListPropertyForm = () => {
             <select 
               value={formData.propertyType}
               onChange={(e) => handleChange('propertyType', e.target.value)}
-              className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
+              className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
             >
               <option value="">Select type</option>
               <option value="Apartment">Apartment</option>
@@ -523,7 +523,7 @@ const ListPropertyForm = () => {
             value={formData.price}
             onChange={(e) => handleChange('price', e.target.value)}
             placeholder="e.g. 250000" 
-            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
+            className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
           />
         </div>
       </div>
@@ -535,7 +535,7 @@ const ListPropertyForm = () => {
           value={formData.title}
           onChange={(e) => handleChange('title', e.target.value)}
           placeholder="e.g. Luxury Apartment in Downtown" 
-          className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
+          className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all"
         />
       </div>
 
@@ -546,7 +546,7 @@ const ListPropertyForm = () => {
           value={formData.description}
           onChange={(e) => handleChange('description', e.target.value)}
           placeholder="Describe your property..." 
-          className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all resize-none"
+          className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-50 focus:border-[#1787B1] transition-all resize-none"
         ></textarea>
       </div>
 
@@ -555,7 +555,7 @@ const ListPropertyForm = () => {
         <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">Cover Image</label>
         
         {!formData.coverImagePreview ? (
-          <label className="border-2 border-dashed border-gray-200 rounded-xl py-8 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
+          <label className="border-2 border-dashed border-primary/20 rounded-xl py-8 flex flex-col items-center justify-center text-center hover:bg-gray-50 hover:border-[#1787B1] transition-all cursor-pointer group">
             <input 
               type="file" 
               accept="image/*" 
@@ -567,7 +567,7 @@ const ListPropertyForm = () => {
             <p className="text-[10px] text-slate-400 mt-1">PNG, JPG up to 5MB</p>
           </label>
         ) : (
-          <div className="relative w-full h-64 rounded-xl overflow-hidden border border-gray-200 group">
+          <div className="relative w-full h-64 rounded-xl overflow-hidden border border-primary/20 group">
             <img 
               src={formData.coverImagePreview} 
               alt="Cover Preview" 
@@ -599,7 +599,7 @@ const ListPropertyForm = () => {
              <select 
                value={formData.bedrooms}
                onChange={(e) => handleChange('bedrooms', e.target.value)}
-               className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:border-[#1787B1] focus:outline-none"
+               className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 appearance-none focus:border-[#1787B1] focus:outline-none"
              >
                <option value="">Select</option>
                <option value="1">1</option>
@@ -618,7 +618,7 @@ const ListPropertyForm = () => {
              <select 
                 value={formData.bathrooms}
                 onChange={(e) => handleChange('bathrooms', e.target.value)}
-                className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 appearance-none focus:border-[#1787B1] focus:outline-none"
+                className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 appearance-none focus:border-[#1787B1] focus:outline-none"
              >
                <option value="">Select</option>
                <option value="1">1</option>
@@ -637,7 +637,7 @@ const ListPropertyForm = () => {
             value={formData.area}
             onChange={(e) => handleChange('area', e.target.value)}
             placeholder="e.g. 1200"
-            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:border-[#1787B1] focus:outline-none"
+            className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:border-[#1787B1] focus:outline-none"
           />
         </div>
       </div>
@@ -691,7 +691,7 @@ const ListPropertyForm = () => {
             value={formData.city}
             onChange={(e) => handleChange('city', e.target.value)}
             placeholder="Los Angeles" 
-            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+            className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
           />
         </div>
         <div className="space-y-2">
@@ -701,7 +701,7 @@ const ListPropertyForm = () => {
             value={formData.state}
             onChange={(e) => handleChange('state', e.target.value)}
             placeholder="California" 
-            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+            className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
           />
         </div>
         <div className="space-y-2">
@@ -711,7 +711,7 @@ const ListPropertyForm = () => {
             value={formData.zip}
             onChange={(e) => handleChange('zip', e.target.value)}
             placeholder="90001" 
-            className="w-full p-3.5 bg-gray-50 border border-gray-100 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
+            className="w-full p-3.5 bg-gray-50 border border-primary/20 rounded-lg text-sm text-slate-600 focus:outline-none focus:border-[#1787B1]"
           />
         </div>
       </div>
