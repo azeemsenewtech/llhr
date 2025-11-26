@@ -109,8 +109,9 @@ import FinancialPage from "./pages/dashboard/financialPage";
 import ChatPage from "./pages/chatPage";
 import Login from "./pages/login";
 
-import ProtectedRoute from "./ProtectedRoute";
+
 import SignupPage from "./signUp";
+import ProtectedRoute from "./protectedRoute";
 
 // Public Layout Wrapper
 function PublicLayout() {
