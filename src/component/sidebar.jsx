@@ -49,12 +49,12 @@ const Sidebar = ({ show, setShow }) => {
             <button
               key={index}
               onClick={() => navigate(item.path)}
-              className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-200 group
-                ${isActive ? 'bg-white text-[#1787B1] font-semibold shadow-sm' : 'text-white hover:bg-white/10'}
+              className={`flex items-center font-poppin gap-4 px-4 py-3 rounded-lg transition-all duration-200 group
+                ${isActive ? 'bg-white font-poppin text-[#1787B1] font-semibold shadow-sm' : 'text-white hover:bg-white/10'}
               `}
             >
               <item.icon size={20} className={isActive ? 'text-[#1787B1]' : 'text-white'} strokeWidth={2} />
-              <span className="text-[15px]">{item.name}</span>
+              <span className="text-[15px] font-poppin">{item.name}</span>
             </button>
           );
         })}
@@ -65,18 +65,18 @@ const Sidebar = ({ show, setShow }) => {
 
       {/* Bottom Actions */}
       <div className="flex flex-col gap-2 mb-4">
-        <button className="flex items-center gap-4 px-4 py-3 rounded-lg text-white hover:bg-white/10 transition-colors">
+        <button className="flex items-center gap-4 px-4 py-3 rounded-lg font-poppin text-white hover:bg-white/10 transition-colors">
           <Settings size={20} strokeWidth={2} />
-          <span className="text-[15px]">Setting</span>
+          <span className="text-[15px] font-poppin">Setting</span>
         </button>
 
         {/* LOGOUT BUTTON */}
         <button 
           onClick={handleLogout}
-          className="flex items-center gap-4 px-4 py-3 rounded-lg text-white hover:bg-white/10 transition-colors"
+          className="flex items-center gap-4 px-4 py-3 font-poppin rounded-lg text-white hover:bg-white/10 transition-colors"
         >
           <LogOut size={20} strokeWidth={2} />
-          <span className="text-[15px]">Logout</span>
+          <span className="text-[15px] font-poppin">Logout</span>
         </button>
       </div>
 

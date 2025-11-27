@@ -9,12 +9,12 @@ const Header = ({ show, setShow }) => {
       <div className="xl:flex hidden flex-col gap-1 text-left">
     
         <div className="flex items-center gap-2">
-          <h1 className="text-xl md:text-2xl font-bold animate-pulse text-slate-800">
+          <h1 className="text-xl font-poppin md:text-2xl font-bold animate-pulse text-slate-800">
             Owner Dashboard
           </h1>
           <span className="text-xl md:text-2xl animate-pulse">👋</span>
         </div>
-        <p className="text-sm text-slate-500 font-medium">
+        <p className="text-sm font-poppin text-slate-500 font-medium">
           Welcome back! Here's an overview of your properties and activities.
         </p>
       </div>
@@ -28,7 +28,7 @@ const Header = ({ show, setShow }) => {
           <input 
             type="text" 
             placeholder="Search for anything.." 
-            className="w-full py-2.5 pl-5 pr-10 bg-slate-50 border border-slate-100 rounded-full text-sm text-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 transition-all"
+            className="w-full font-poppin py-2.5 pl-5 pr-10 bg-slate-50 border border-slate-100 rounded-full text-sm text-slate-600 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-300 transition-all"
           />
           <Search 
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400" 
@@ -49,10 +49,10 @@ const Header = ({ show, setShow }) => {
           
           {/* User Info */}
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-slate-800 leading-tight">
+            <span className="text-sm font-poppin font-bold text-slate-800 leading-tight">
               Easin Arafat
             </span>
-            <span className="text-xs text-slate-500 font-medium">
+            <span className="text-xs font-poppin text-slate-500 font-medium">
               Free Account
             </span>
           </div>

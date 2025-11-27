@@ -83,16 +83,16 @@ const NewPropertyWizard = () => {
 
   const renderStep1 = () => (
     <>
-      <h2 className="text-[#1a8bb5] font-bold text-lg mb-6">Step 1: Select Type & Parties</h2>
+      <h2 className="text-[#1a8bb5] font-poppin font-bold text-lg mb-6">Step 1: Select Type & Parties</h2>
       <div className="space-y-5 mb-8">
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">Contract Type</label>
+          <label className="block text-sm font-poppin  font-bold text-gray-700 mb-2">Contract Type</label>
           <div className="relative">
             <select 
               name="contractType"
               value={formData.contractType}
               onChange={handleInputChange}
-              className="w-full appearance-none border border-slate-200 rounded-md py-2.5 px-4 text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#1a8bb5] focus:border-[#1a8bb5]"
+              className="w-full appearance-none font-poppin border border-slate-200 rounded-md py-2.5 px-4 text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#1a8bb5] focus:border-[#1a8bb5]"
             >
               <option value="">Select contract type</option>
               <option value="Residential Lease">Residential Lease</option>
@@ -103,13 +103,13 @@ const NewPropertyWizard = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">Select Property</label>
+          <label className="block text-sm font-poppin font-bold text-gray-700 mb-2">Select Property</label>
           <div className="relative">
-            <select 
+            <select  
               name="property"
               value={formData.property}
               onChange={handleInputChange}
-              className="w-full appearance-none border border-slate-200 rounded-md py-2.5 px-4 text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#1a8bb5] focus:border-[#1a8bb5]"
+              className="w-full appearance-none font-poppin border border-slate-200 rounded-md py-2.5 px-4 text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#1a8bb5] focus:border-[#1a8bb5]"
             >
               <option value="">Select property</option>
               <option value="Luxury Apartment Downtown">Luxury Apartment Downtown</option>
@@ -123,7 +123,7 @@ const NewPropertyWizard = () => {
       <hr className="border-gray-100 mb-8" />
 
       <div className="space-y-5">
-        <h3 className="text-[#1a8bb5] font-bold text-lg mb-4">Parties</h3>
+        <h3 className="text-[#1a8bb5] font-poppin font-bold text-lg mb-4">Parties</h3>
         <InputField label="Landlord Name" name="landlordName" value={formData.landlordName} onChange={handleInputChange} placeholder="Enter landlord name" />
         <InputField label="Tenant Name" name="tenantName" value={formData.tenantName} onChange={handleInputChange} placeholder="Enter tenant name" />
         <InputField label="Tenant Email" name="tenantEmail" value={formData.tenantEmail} onChange={handleInputChange} placeholder="tenant@email.com" type="email" />
@@ -134,7 +134,7 @@ const NewPropertyWizard = () => {
   // --- UPDATED STEP 2 ---
   const renderStep2 = () => (
     <>
-      <h2 className="text-[#1a8bb5] font-bold text-xl mb-8">Step 2: Define Terms</h2>
+      <h2 className="text-[#1a8bb5] font-poppin font-bold text-xl mb-8">Step 2: Define Terms</h2>
 
       <div className="space-y-6">
         {/* Row 1: Dates */}
@@ -197,9 +197,9 @@ const NewPropertyWizard = () => {
 
   const renderStep3 = () => (
     <>
-      <h2 className="text-[#1a8bb5] font-bold text-lg mb-6">Step 3: Review & Send</h2>
+      <h2 className="text-[#1a8bb5] font-poppin font-bold text-lg mb-6">Step 3: Review & Send</h2>
       <div className="bg-slate-50 p-6 rounded-lg space-y-4 border border-slate-100">
-        <h4 className="font-bold text-gray-800">Summary</h4>
+        <h4 className="font-poppin font-bold text-gray-800">Summary</h4>
         <div className="grid grid-cols-2 gap-y-4 text-sm">
            <span className="text-gray-500">Property:</span>
            <span className="font-medium text-gray-700">{formData.property || '-'}</span>

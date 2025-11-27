@@ -15,7 +15,9 @@ const highlights = [
 
 const ScoreSection = () => {
   return (
-    <section className="bg-[#f4f7fb] py-16">
+    <section className="relative  bg-[#f4f7fb] py-16">
+   <img src="/assets/image/dot.png" alt="Background" className=" absolute top-10 left-5 w-[50px] object-cover opacity-10 pointer-events-none" />
+
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 md:flex-row md:items-center">
         <div className="relative w-full max-w-md rounded-[56px] border-[3px] border-sky-400 bg-white px-8 py-10 shadow-[0_20px_45px_rgba(15,23,42,0.1)]">
           <div className="absolute -left-10 -top-10 h-20 w-20 rounded-full bg-sky-500"></div>
@@ -52,8 +54,11 @@ const ScoreSection = () => {
             </div>
           </div>
 
-          <div className="absolute -right-6 bottom-6 flex h-12 w-12 items-center justify-center rounded-full bg-sky-500 text-white shadow-lg">
-            ✓
+          <div className="absolute right-6 top-10 bottom-6 flex h-12 w-12 items-center justify-center rounded-full bg-sky-500 text-white shadow-lg">
+            <svg width="18" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 0L0 5.45455V13.6364C0 21.2045 5.12 28.2818 12 30C18.88 28.2818 24 21.2045 24 13.6364V5.45455L12 0ZM9.33333 21.8182L4 16.3636L5.88 14.4409L9.33333 17.9591L18.12 8.97273L20 10.9091L9.33333 21.8182Z" fill="white"/>
+</svg>
+
           </div>
         </div>
 

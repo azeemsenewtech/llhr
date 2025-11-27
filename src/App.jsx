@@ -112,6 +112,7 @@ import Login from "./pages/login";
 
 import SignupPage from "./signUp";
 import ProtectedRoute from "./protectedRoute";
+import DocumentPage from "./pages/dashboard/documentPage";
 
 
 // Public Layout Wrapper
@@ -162,6 +163,7 @@ function App() {
           <Route path="payments" element={<PaymentPage />} />
           <Route path="insights" element={<FinancialPage />} />
           <Route path="messages" element={<ChatPage />} />
+           <Route path="documents" element={<DocumentPage />} />
         </Route>
 
       </Routes>

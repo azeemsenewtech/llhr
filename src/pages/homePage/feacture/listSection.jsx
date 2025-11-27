@@ -59,7 +59,9 @@ const features = [
 
 const ListSection = () => {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16">
+    <section
+    
+     className="mx-auto max-w-6xl px-6 py-16">
       <div className="text-center space-y-2 mb-10">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-500">
           Our Features

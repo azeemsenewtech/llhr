@@ -109,7 +109,9 @@ const ContactSection = () => {
               </div>
 
               {/* Submit Button */}
-              <button className="bg-primary flex items-center justify-center text-white py-3 px-6 rounded-md w-full font-semibold hover:bg-blue-700 transition">
+              <button
+
+               className="bg-primary flex items-center justify-center text-white py-3 px-6 rounded-md w-full font-semibold hover:bg-blue-700 transition">
                 Submit
               </button>
             </form>
@@ -121,13 +123,13 @@ const ContactSection = () => {
               <div key={index} className="flex items-start gap-4">
                 <div className="bg-[#E8F4FF] p-3 rounded-lg">{item.icon}</div>
                 <div className="flex flex-col ">
-                  <h3 className="font-semibold text-[18px] text-[#1F2D3D]">
+                  <h3 className="font-semibold font-poppins text-[18px] text-[#1F2D3D]">
                     {item.title}
                   </h3>
                   <div className="flex gap-4">
                     {item.lines.map((line, i) => (
                       <p
-                        className="text-[#44525E] text-[13px] font-poppins"
+                        className="text-[#44525E]   font-poppin text-[13px] font-poppins"
                         key={i}
                       >
                         {line}
@@ -140,6 +142,7 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
+
     </section>
   );
 };

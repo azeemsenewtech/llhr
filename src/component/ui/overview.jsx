@@ -31,16 +31,16 @@ export default function PropertyDetails() {
       {/* Features & Amenities */}
       <div>
         <div className="flex items-center gap-2 mb-4">
-          <PiListBold className="text-gray-700 text-lg" />
-          <h2 className="text-lg font-semibold text-gray-800">
+          <PiListBold className=" font-poppins text-gray-700 text-lg" />
+          <h2 className="text-lg font-poppins font-semibold text-gray-800">
             Features & Amenities
           </h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {amenities.map((item, i) => (
-            <div key={i} className="flex items-center gap-2 text-sm text-gray-700">
-              <FiCheckCircle className="text-blue-400 text-base" />
+            <div key={i} className="flex items-center gap-2  text-sm text-gray-700">
+              <FiCheckCircle className="text-blue-400 font-poppins text-base" />
               {item}
             </div>
           ))}
@@ -49,7 +49,7 @@ export default function PropertyDetails() {
 
       {/* Overview */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-semibold text-gray-800 font-poppins mb-4 flex items-center gap-2">
           <PiListBold className="text-gray-700 text-lg" />
           Overview
         </h2>
@@ -64,8 +64,8 @@ export default function PropertyDetails() {
               key={index}
               className=" px-4 py-3  flex flex-col"
             >
-              <span className="text-xs text-gray-500">{item.title}</span>
-              <span className="text-base font-semibold text-gray-800">
+              <span className="text-xs font-poppins text-gray-500">{item.title}</span>
+              <span className="text-base font-poppins font-semibold text-gray-800">
                 {item.value}
               </span>
             </div>

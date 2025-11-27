@@ -93,7 +93,7 @@ const Detail = () => {
                     <span>Melbourne</span>
                   </span>
                 </div>
-             <div className="mt-8 text-sm rounded-[10px] border-2 border-primary/20 py-10 px-6 text-slate-600 space-y-4">
+             <div className="mt-8 text-sm font-poppin rounded-[10px] border-2 border-primary/20 py-10 px-6 text-slate-600 space-y-4">
                Step outside to a private garden and patio — perfect for relaxing or entertaining. The home also includes secure parking, smart automation, and energy-efficient features for modern living.<br />
                 Experience modern living in this beautifully designed 5-bedroom, 2-bathroom home in the heart of Battaglia Veneto. It features an open-concept living area with large windows, a fully equipped kitchen, and spacious bedrooms with built-in wardrobes.
              </div>
@@ -111,12 +111,12 @@ const Detail = () => {
                 <div className="flex items-center gap-4">
                   <img src={houseImg} alt="agent" className="w-12 h-12 rounded-full object-cover" />
                   <div>
-                    <div className="text-sm font-semibold">Admin</div>
-                    <div className="text-xs text-slate-500">Member since 11 months</div>
+                    <div className="text-sm font-poppin font-semibold">Admin</div>
+                    <div className="text-xs font-poppin text-slate-500">Member since 11 months</div>
                   </div>
                 </div>
 
-                <div className="mt-4 text-sm space-y-2  text-slate-600">
+                <div className="mt-4 text-sm font-poppin space-y-2  text-slate-600">
                   <div className="flex items-center">
                     <svg className="w-4 h-4 mr-2 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7z"/></svg>
                     21 Monroe Ave, Rochester NY
@@ -131,16 +131,16 @@ const Detail = () => {
                 </div>
 
                 <div className="mt-4">
-                  <button className="w-full bg-sky-600 text-white py-2 rounded-md text-sm font-semibold">View Profile</button>
+                  <button className="w-full bg-sky-600 font-poppin text-white py-2 rounded-md text-sm font-semibold">View Profile</button>
                 </div>
               </div>
 
               <div className="rounded-xl border border-primary/20 p-4">
-                <h4 className="text-sm font-semibold mb-3">Property Contact</h4>
-                <div className="text-sm text-slate-600 space-y-3">
+                <h4 className="text-sm font-poppin font-semibold mb-3">Property Contact</h4>
+                <div className="text-sm font-poppin text-slate-600 space-y-3">
                   <div className="flex items-center"><svg className="w-4 h-4 mr-2 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5v14h18V5H3zm9 12a4 4 0 110-8 4 4 0 010 8z"/></svg>18 Brooklyn Street, New York</div>
-                  <div className="flex items-center"><IconPhone />+84-666-888-99</div>
-                  <div className="flex items-center"><svg className="w-4 h-4 mr-2 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4z"/></svg>contact@example.com</div>
+                  <div className="flex font-poppin items-center"><IconPhone />+84-666-888-99</div>
+                  <div className="flex font-poppin items-center"><svg className="w-4 h-4 mr-2 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4z"/></svg>contact@example.com</div>
                 </div>
               </div>
 

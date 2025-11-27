@@ -11,7 +11,7 @@ const HeroSection2 = ({
     >
       <div className="mx-auto w-full max-w-5xl px-6">
         <h1 className="md:text-[54px] font-poppin text-[40px] font-bold ">{title}</h1>
-        <p className="mt-3 text-md text-white">
+        <p className="mt-3 text-md font-poppin text-white">
           {breadcrumb.map((crumb, idx) => (
             <span key={crumb}>
               {crumb}
