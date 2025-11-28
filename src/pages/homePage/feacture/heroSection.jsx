@@ -256,7 +256,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className="w-full h-full pt-10 md:h-[600px] bg-cover bg-center relative flex items-center overflow-hidden"
+      className="w-full h-full  md:pt-16  pt-[100px] px-2 md:h-[600px] bg-cover bg-center relative flex items-start justify-center overflow-hidden"
     >
       {/* 🔥 Background Video */}
       <video
@@ -271,7 +271,7 @@ const HeroSection = () => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      <div className="relative w-full flex flex-col lg:flex-row items-start justify-around md:px-10 text-white">
+      <div className="relative w-full h-full  flex flex-col lg:flex-row items-center m-2 justify-around md:px-10 text-white">
         
         {/* LEFT */}
         <motion.div
@@ -288,13 +288,13 @@ const HeroSection = () => {
             <p className="text-sm"> 🏠 AI-Powered Real Estate Platform</p>
           </motion.div>
 
-          <motion.h1
-            className="text-[42px] md:text-[56px] font-poppins font-bold mt-4 leading-tight"
+          <h1
+            className="text-[42px] typing-loop md:text-[56px] font-poppins font-bold mt-4 leading-tight"
             variants={fadeUp}
             custom={1}
           >
             Rent. Buy. Sell.
-          </motion.h1>
+          </h1>
 
           <motion.p className="mt-2 opacity-90" variants={fadeUp} custom={2}>
             AI-powered real estate made effortless. Connect with verified
@@ -313,12 +313,12 @@ const HeroSection = () => {
 
         {/* RIGHT */}
         <motion.div
-          className="flex w-[50%] p-10 lg:p-10 items-center justify-center"
+          className="flex lg:w-[50%] w-full h-full   lg:p-10 md:items-center md:items-start justify-center"
           variants={fadeInRight}
           initial="hidden"
           animate="visible"
         >
-          <div className="h-[300px] flex flex-col items-start rounded-[25px] w-full bg-white p-6">
+          <div className="h-[300px] flex flex-col items-start rounded-[25px] w-full bg-white p-4 md:p-6">
             
             <motion.div
               className="flex items-center justify-center gap-4 bg-[#F9FAFB] rounded-xl p-2 "
