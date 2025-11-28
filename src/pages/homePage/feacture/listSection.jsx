@@ -1,3 +1,6 @@
+import React from "react";
+import { motion } from "framer-motion";
+
 const features = [
   {
     title: "AI Valuation",
@@ -58,10 +61,21 @@ const features = [
 ];
 
 const ListSection = () => {
+  // Variants for animation
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1.5, ease: "easeOut" } },
+  };
+
   return (
-    <section
-    
-     className="mx-auto max-w-6xl px-6 py-16">
+    <section className="mx-auto max-w-6xl px-6 py-16">
       <div className="text-center space-y-2 mb-10">
         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-500">
           Our Features
@@ -69,11 +83,18 @@ const ListSection = () => {
         <h2 className="text-3xl font-bold text-slate-900">What Makes Us Different</h2>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <motion.div
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {features.map((feature) => (
-          <article
+          <motion.article
             key={feature.title}
             className="flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-[0_15px_30px_rgba(15,23,42,0.06)]"
+            variants={cardVariants}
           >
             <div className="flex items-center gap-3">
               <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-500">
@@ -85,9 +106,9 @@ const ListSection = () => {
             <span className="inline-flex w-fit rounded-full bg-slate-50 px-4 py-1 text-xs font-semibold text-sky-600">
               {feature.tag}
             </span>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

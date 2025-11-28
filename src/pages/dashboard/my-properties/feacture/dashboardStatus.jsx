@@ -33,7 +33,7 @@ const StatCard = ({ value, label }) => {
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow duration-200">
       {/* Icon Container */}
-      <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-500">
+      <div className="w-12 h-12 font-poppin rounded-full bg-blue-50 flex items-center justify-center shrink-0 text-blue-500">
         {/* Building Icon SVG */}
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
@@ -62,10 +62,10 @@ const StatCard = ({ value, label }) => {
 
       {/* Text Content */}
       <div className="flex flex-col">
-        <span className="text-[#2d8cbb] font-bold text-lg leading-none mb-1">
+        <span className="text-[#2d8cbb] font-poppin font-bold text-lg leading-none mb-1">
           {value}
         </span>
-        <span className="text-gray-500 text-[11px] font-medium uppercase tracking-wide leading-tight">
+        <span className="text-gray-500 font-poppin text-[11px] font-medium uppercase tracking-wide leading-tight">
           {label}
         </span>
       </div>

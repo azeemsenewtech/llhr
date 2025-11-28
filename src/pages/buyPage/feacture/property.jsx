@@ -242,6 +242,58 @@ const INITIAL_PROPERTIES = [
     type: "Apartment",
     lat: 34.0407,
     lng: -118.2468
+  },
+   {
+    id: 5,
+    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "Modern Villa",
+    address: "Beverly Hills, CA",
+    beds: 5,
+    baths: 4,
+    sqft: 3200,
+    price: "$1,820,000",
+    type: "House",
+    lat: 34.0736,
+    lng: -118.4004
+  },
+  {
+    id: 6,
+    image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "Cozy Downtown Apt",
+    address: "West Hollywood, CA",
+    beds: 2,
+    baths: 1,
+    sqft: 900,
+    price: "$450,000",
+    type: "Apartment",
+    lat: 34.0900,
+    lng: -118.3617
+  },
+  {
+    id: 7,
+    image: "https://images.unsplash.com/photo-1600596542815-2a5133757918?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "Luxury Estate",
+    address: "Bel Air, CA",
+    beds: 6,
+    baths: 5,
+    sqft: 4500,
+    price: "$3,200,000",
+    type: "House",
+    lat: 34.1000,
+    lng: -118.4400
+  },
+  {
+    id: 8,
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "City Loft",
+    address: "Downtown LA, CA",
+    beds: 1,
+    baths: 1,
+    sqft: 800,
+    price: "$250,000",
+    type: "Apartment",
+    lat: 34.0407,
+    lng: -118.2468
   }
 ];
 
@@ -317,7 +369,15 @@ const PropertyListing = () => {
               className={`p-2 rounded shadow-sm ${view === "grid" ? "bg-[#2B8CAD] text-white" : "text-gray-500"}`}
               onClick={() => setView("grid")}
             >
-              <LayoutGrid size={20} />
+            <svg width="16" height="16" viewBox="0 0 16 16"  fill={view === "grid" ? "#2B8CAD" : "#989da7"} // <-- conditional fill
+  stroke={view === "grid" ? "white" : "#2B8CAD"}  xmlns="http://www.w3.org/2000/svg">
+<path d="M12.6667 2H3.33333C2.59695 2 2 2.59695 2 3.33333V12.6667C2 13.403 2.59695 14 3.33333 14H12.6667C13.403 14 14 13.403 14 12.6667V3.33333C14 2.59695 13.403 2 12.6667 2Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 6H14" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2 10H14" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 2V14" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10 2V14" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
             </button>
             <button 
               className={`p-2 rounded ${view === "list" ? "bg-[#2B8CAD] text-white" : "text-gray-500"}`}

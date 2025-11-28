@@ -1,230 +1,7 @@
-// // import { useState } from "react";
 
-// // const faqsLeft = [
-// //   {
-// //     question: "Can I use LIHAR in multiple countries?",
-// //     answer:
-// //       "Yes, LIHAR currently operates in key countries with support for local currencies, languages, and regulations. Check our coverage map to see if we serve your location.",
-// //   },
-// //   {
-// //     question: "How is my data protected?",
-// //     answer:
-// //       "We encrypt all sensitive data using bank-level security and follow regional compliance frameworks like GDPR and SOC 2.",
-// //   },
-// //   {
-// //     question: "What payment methods do you support?",
-// //     answer:
-// //       "We support credit cards, bank transfers, and digital wallets in supported countries.",
-// //   },
-// //   {
-// //     question: "How is LIHARScore calculated?",
-// //     answer:
-// //       "The score combines identity verification, financial health, and rental history using AI risk models.",
-// //   },
-// //   {
-// //     question: "How long does verification take?",
-// //     answer:
-// //       "Basic checks complete in minutes; deeper document reviews may take up to 24 hours.",
-// //   },
-// //   {
-// //     question: "Are there any hidden fees?",
-// //     answer:
-// //       "No. All fees are disclosed upfront and depend on the services you select.",
-// //   },
-// //   {
-// //     question: "What happens if a tenant or owner fails verification?",
-// //     answer:
-// //       "We notify both parties, provide guidance on resolving issues, and can rerun checks after corrections.",
-// //   },
-// // ];
-
-// // const QSection = () => {
-// //   const [openIndex, setOpenIndex] = useState(0);
-
-// //   return (
-// //     <section className="bg-white py-16">
-// //       <div className="mx-auto max-w-6xl px-6 space-y-8">
-// //         <div className="text-start space-y-3">
-// //           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-500">
-// //             FAQs
-// //           </p>
-// //           <h2 className="mt-2 text-[40px] font-semibold text-slate-900">
-// //             Frequently Asked Question’s!
-// //           </h2>
-// //           <p className="mt-3 text-sm text-slate-500">
-// //             Learn how LIHARScore™ makes renting transparent and secure.
-// //           </p>
-// //         </div>
-
-// //         {/* <div className="flex    flex-col gap-4 ">
-// //           {faqsLeft.map((item, index) => {
-// //               const isOpen = openIndex === index;
-// //               return (
-// //                 <article
-// //                   key={item.question}
-// //                 className={`flex cursor-pointer flex-col rounded-[18px] border px-6 py-5 text-base transition ${
-// //                     isOpen
-// //                       ? "border-sky-500 bg-sky-500 text-white"
-// //                       : "border-slate-100 bg-white text-slate-800 hover:border-sky-200"
-// //                   }`}
-// //                   onClick={() =>
-// //                     setOpenIndex((current) => (current === index ? -1 : index))
-// //                   }
-// //                 >
-// //                   <div className="flex items-start justify-between gap-4">
-// //                     <p className="font-semibold leading-snug">{item.question}</p>
-// //                     <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full  text-sm">
-// //                       {isOpen ? "−" : "+"}
-// //                     </span>
-// //                   </div>
-// //                   {isOpen && (
-// //                     <p className="mt-3 text-sm leading-relaxed opacity-90">
-// //                       {item.answer}
-// //                     </p>
-// //                   )}
-// //                 </article>
-// //               );
-// //             })}
-// //         </div> */}
-// //         <div className="flex flex-wrap gap-4">
-// //   {faqsLeft.map((item, index) => {
-// //     const isOpen = openIndex === index;
-// //     return (
-// //       <article
-// //         key={item.question}
-// //         className={`w-full md:w-[48%] flex cursor-pointer flex-col rounded-[18px] border px-6 py-5 text-base transition ${
-// //           isOpen
-// //             ? "border-sky-500 bg-sky-500 text-white"
-// //             : "border-slate-100 bg-white text-slate-800 hover:border-sky-200"
-// //         }`}
-// //         onClick={() =>
-// //           setOpenIndex((current) => (current === index ? -1 : index))
-// //         }
-// //       >
-// //         <div className="flex items-start justify-between gap-4">
-// //           <p className="font-semibold leading-snug">{item.question}</p>
-// //           <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm">
-// //             {isOpen ? "−" : "+"}
-// //           </span>
-// //         </div>
-// //         {isOpen && (
-// //           <p className="mt-3 text-sm leading-relaxed opacity-90">
-// //             {item.answer}
-// //           </p>
-// //         )}
-// //       </article>
-// //     );
-// //   })}
-// // </div>
-
-// //       </div>
-// //     </section>
-// //   );
-// // };
-
-// // export default QSection;
-// import { useState } from "react";
-
-// const faqsLeft = [
-//   {
-//     question: "Can I use LIHAR in multiple countries?",
-//     answer:
-//       "Yes, LIHAR currently operates in key countries with support for local currencies, languages, and regulations. Check our coverage map to see if we serve your location.",
-//   },
-//   {
-//     question: "How is my data protected?",
-//     answer:
-//       "We encrypt all sensitive data using bank-level security and follow regional compliance frameworks like GDPR and SOC 2.",
-//   },
-//   {
-//     question: "What payment methods do you support?",
-//     answer:
-//       "We support credit cards, bank transfers, and digital wallets in supported countries.",
-//   },
-//   {
-//     question: "How is LIHARScore calculated?",
-//     answer:
-//       "The score combines identity verification, financial health, and rental history using AI risk models.",
-//   },
-//   {
-//     question: "How long does verification take?",
-//     answer:
-//       "Basic checks complete in minutes; deeper document reviews may take up to 24 hours.",
-//   },
-//   {
-//     question: "Are there any hidden fees?",
-//     answer:
-//       "No. All fees are disclosed upfront and depend on the services you select.",
-//   },
-//   {
-//     question: "What happens if a tenant or owner fails verification?",
-//     answer:
-//       "We notify both parties, provide guidance on resolving issues, and can rerun checks after corrections.",
-//   },
-// ];
-
-// const QSection = () => {
-//   // FIX ✔ No item is open at the start
-//   const [openIndex, setOpenIndex] = useState(-1);
-
-//   return (
-//     <section className="bg-white py-16">
-//       <div className="mx-auto max-w-6xl px-6 space-y-8">
-        
-//         <div className="text-start space-y-3">
-//           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-500">
-//             FAQs
-//           </p>
-//           <h2 className="mt-2 text-[40px] font-semibold text-slate-900">
-//             Frequently Asked Question’s!
-//           </h2>
-//           <p className="mt-3 text-sm text-slate-500">
-//             Learn how LIHARScore™ makes renting transparent and secure.
-//           </p>
-//         </div>
-
-//         {/* Two-column layout WITHOUT grid */}
-//       <div className="flex flex-wrap items-start gap-4">
-//   {faqsLeft.map((item, index) => {
-//     const isOpen = openIndex === index;
-//     return (
-//       <article
-//         key={item.question}
-//         className={`w-full md:w-[48%] flex cursor-pointer flex-col rounded-[18px] border px-6 py-5 text-base transition ${
-//           isOpen
-//             ? "border-sky-500 bg-sky-500 text-white"
-//             : "border-slate-100 bg-white text-slate-800 hover:border-sky-200"
-//         }`}
-//         onClick={() =>
-//           setOpenIndex((current) => (current === index ? -1 : index))
-//         }
-//       >
-//         <div className="flex items-start justify-between gap-4">
-//           <p className="font-semibold leading-snug">{item.question}</p>
-//           <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm">
-//             {isOpen ? "−" : "+"}
-//           </span>
-//         </div>
-
-//         {isOpen && (
-//           <p className="mt-3 text-sm leading-relaxed opacity-90">
-//             {item.answer}
-//           </p>
-//         )}
-//       </article>
-//     );
-//   })}
-// </div>
-
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default QSection;
 
 import React, { useState } from 'react';
-
+import { motion } from "framer-motion";
 // --- SVG Icons ---
 const PlusIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={className}>
@@ -351,21 +128,31 @@ const FAQSection = () => {
             </div>
 
             {/* Left Column FAQs */}
-            <div className="flex flex-col gap-4">
+            <motion.div 
+               initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="flex flex-col gap-4">
               {leftColumnData.map((item) => (
                 <FAQItem key={item.id} item={item} />
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column: Remaining 4 FAQs */}
           {/* Added top padding on desktop to align with the FAQ items on the left (skipping the header height) */}
-          <div className="flex flex-col gap-4 justify-end">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+     
+           className="flex flex-col gap-4 justify-end">
             {rightColumnData.map((item) => (
               <FAQItem key={item.id} item={item} />
             ))}
-          </div>
-
+          </motion.div>
         </div>
       </div>
     </section>

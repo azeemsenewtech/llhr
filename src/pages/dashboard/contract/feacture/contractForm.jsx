@@ -199,7 +199,7 @@ const NewPropertyWizard = () => {
     <>
       <h2 className="text-[#1a8bb5] font-poppin font-bold text-lg mb-6">Step 3: Review & Send</h2>
       <div className="bg-slate-50 p-6 rounded-lg space-y-4 border border-slate-100">
-        <h4 className="font-poppin font-bold text-gray-800">Summary</h4>
+        <h4 className="font-poppin  font-bold text-gray-800">Summary</h4>
         <div className="grid grid-cols-2 gap-y-4 text-sm">
            <span className="text-gray-500">Property:</span>
            <span className="font-medium text-gray-700">{formData.property || '-'}</span>

@@ -293,8 +293,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-full bg-white shadow-sm border-b border-blue-200 relative font-sans">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between py-6 px-6">
+    <header className="w-full fixed bg-white z-30 shadow-sm border-b border-blue-200 font-sans">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between py-5 px-6">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <img
@@ -339,7 +339,7 @@ const Navbar = () => {
 
 
         {/* Desktop Buttons */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-10">
           {isLoggedIn ? (
             <>
               <NavLink
@@ -350,7 +350,7 @@ const Navbar = () => {
               </NavLink>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-red-600 transition"
+                className="bg-primary font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-red-600 transition"
               >
                 Logout
               </button>
@@ -359,13 +359,22 @@ const Navbar = () => {
             <>
               <NavLink
                 to="/login"
-                className="text-primary font-poppin font-medium hover:text-primary transition"
+                className="text-primary font-poppin font-bold hover:text-primary transition"
               >
                 Login
               </NavLink>
-              <button className="bg-primary font-poppin text-white font-medium px-6 py-2 rounded-lg shadow hover:bg-primary transition">
-                Sign Up
-              </button>
+        <button className="relative group overflow-hidden rounded-lg bg-primary px-6 py-2.5 text-white font-semibold shadow-lg">
+  <span className="relative z-10 flex items-center justify-center">
+    Sign Up
+  </span>
+
+  {/* Shine effect */}
+  <span className="absolute top-0 left-[-50%] h-full w-1/2 bg-white/30 opacity-0 
+    -skew-x-12 group-hover:opacity-100 group-hover:animate-shine">
+  </span>
+</button>
+
+
             </>
           )}
         </div>
