@@ -525,11 +525,12 @@
 // };
 
 // export default ChatApp;
- import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 
-const socket = io("http://localhost:3001");
+// Connect to Socket.IO server
+const socket = io("http://localhost:3001/");
 
 export default function App() {
   const [name, setName] = useState("");
@@ -550,21 +551,22 @@ export default function App() {
   const fetchUsers = async () => {
     if (!user) return;
     const res = await axios.get("http://localhost:3001/users");
-    setUsers(res.data.filter(u => u.id !== user.id));
+    setUsers(res.data.filter((u) => u._id !== user._id));
   };
 
+  // Login / Register
   const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:3001/login", { email });
       setUser(res.data.user);
-      socket.emit("join", res.data.user.id);
+      socket.emit("join", res.data.user._id);
     } catch {
-      const reg = await axios.post("http://localhost:3001/register", {
-        name,
+        const reg = await axios.post("http://localhost:3001/register", {
+          name,
         email,
       });
       setUser(reg.data.user);
-      socket.emit("join", reg.data.user.id);
+      socket.emit("join", reg.data.user._id);
     }
   };
 
@@ -572,25 +574,32 @@ export default function App() {
     if (user) fetchUsers();
   }, [user]);
 
+  // Select a user to chat with
   const selectUser = async (u) => {
     setSelectedUser(u);
+
+    // Join the chat room for this conversation
+    socket.emit("join_chat", { senderId: user._id, receiverId: u._id });
+
     const res = await axios.get(
-      `http://localhost:3001/messages/${user.id}/${u.id}`
+      `http://localhost:3001/messages/${user._id}/${u._id}`
     );
-    setChatHistory((prev) => ({ ...prev, [u.id]: res.data }));
+    setChatHistory((prev) => ({ ...prev, [u._id]: res.data }));
   };
 
+  // Send a message
   const sendMessage = () => {
     if (!selectedUser || !message) return;
-    const data = { senderId: user.id, receiverId: selectedUser.id, message };
+    const data = { senderId: user._id, receiverId: selectedUser._id, message };
     socket.emit("send_message", data);
     setChatHistory((prev) => ({
       ...prev,
-      [selectedUser.id]: [...(prev[selectedUser.id] || []), data],
+      [selectedUser._id]: [...(prev[selectedUser._id] || []), data],
     }));
     setMessage("");
   };
 
+  // Listen for messages and online users
   useEffect(() => {
     socket.on("receive_message", ({ senderId, message }) => {
       const chatUserId = senderId;
@@ -600,7 +609,6 @@ export default function App() {
       }));
     });
 
-    // Track online users
     socket.on("online_users", (ids) => {
       setOnlineUsers(ids);
     });
@@ -615,6 +623,7 @@ export default function App() {
     scrollToBottom();
   }, [chatHistory, selectedUser]);
 
+  // Login / Register form
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-200 to-purple-200">
@@ -645,6 +654,7 @@ export default function App() {
     );
   }
 
+  // Chat UI
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -670,15 +680,13 @@ export default function App() {
         {sidebarOpen && <h3 className="font-semibold mb-3 text-gray-600">Users</h3>}
         <div className="flex-1 overflow-y-auto">
           {users.map((u) => {
-            const isOnline = onlineUsers.includes(u.id);
+            const isOnline = onlineUsers.includes(u._id);
             return (
               <div
-                key={u.id}
+                key={u._id}
                 onClick={() => selectUser(u)}
                 className={`flex items-center p-3 mb-2 rounded-lg cursor-pointer transition-colors ${
-                  selectedUser?.id === u.id
-                    ? "bg-blue-200 font-semibold"
-                    : "hover:bg-gray-100"
+                  selectedUser?._id === u._id ? "bg-blue-200 font-semibold" : "hover:bg-gray-100"
                 }`}
               >
                 <span
@@ -699,17 +707,17 @@ export default function App() {
           Chat with: {selectedUser ? selectedUser.name : "Select a user"}
         </h3>
         <div className="flex-1 p-4 border rounded-2xl bg-white overflow-y-auto space-y-3 flex flex-col">
-          {(selectedUser && chatHistory[selectedUser.id])?.map((m, i) => (
+          {(selectedUser && chatHistory[selectedUser._id])?.map((m, i) => (
             <div
               key={i}
               className={`max-w-xs p-3 rounded-2xl break-words ${
-                m.senderId === user.id
+                m.senderId === user._id
                   ? "bg-blue-500 text-white self-end"
                   : "bg-gray-200 text-gray-800 self-start"
               }`}
             >
               <span className="font-semibold">
-                {m.senderId === user.id ? "You" : selectedUser.name}
+                {m.senderId === user._id ? "You" : selectedUser.name}
               </span>
               : {m.message}
             </div>
@@ -737,3 +745,240 @@ export default function App() {
     </div>
   );
 }
+
+// App.jsx
+// import { useState, useEffect, useRef } from "react";
+// import io from "socket.io-client";
+// import axios from "axios";
+
+// // Connect to your backend
+// const socket = io("https://chat-api-iota-lyart.vercel.app");
+
+// export default function App() {
+//   const [name, setName] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [user, setUser] = useState(null);
+//   const [users, setUsers] = useState([]);
+//   const [selectedUser, setSelectedUser] = useState(null);
+//   const [message, setMessage] = useState("");
+//   const [chatHistory, setChatHistory] = useState({});
+//   const [sidebarOpen, setSidebarOpen] = useState(true);
+//   const [onlineUsers, setOnlineUsers] = useState([]);
+//   const messagesEndRef = useRef(null);
+
+//   const scrollToBottom = () =>
+//     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+
+//   // Fetch all users
+//   const fetchUsers = async () => {
+//     if (!user) return;
+//     try {
+//       const res = await axios.get(
+//         "http://localhost:3001/users"
+//       );
+//       setUsers(res.data.filter((u) => u._id !== user._id));
+//     } catch (err) {
+//       console.error("Error fetching users:", err);
+//     }
+//   };
+
+//   // Login or register
+//   const handleLogin = async () => {
+//     try {
+//       const res = await axios.post(
+//         "http://localhost:3001/login",
+//         { email }
+//       );
+//       setUser(res.data.user);
+//       socket.emit("join", res.data.user._id);
+//     } catch {
+//       const reg = await axios.post(
+//         "http://localhost:3001/register",
+//         { name, email }
+//       );
+//       setUser(reg.data.user);
+//       socket.emit("join", reg.data.user._id);
+//     }
+//   };
+
+//   // Fetch users after login
+//   useEffect(() => {
+//     if (user) fetchUsers();
+//   }, [user]);
+
+//   // Select user and load chat history
+//   const selectUser = async (u) => {
+//     setSelectedUser(u);
+//     try {
+//       const res = await axios.get(
+//         `http://localhost:3001/messages/${user._id}/${u._id}`
+//       );
+//       setChatHistory((prev) => ({ ...prev, [u._id]: res.data }));
+//     } catch (err) {
+//       console.error("Error loading messages:", err);
+//     }
+//   };
+
+//   // Send message
+//   const sendMessage = () => {
+//     if (!selectedUser || !message) return;
+//     const data = {
+//       senderId: user._id,
+//       receiverId: selectedUser._id,
+//       message,
+//     };
+//     socket.emit("send_message", data);
+//     setChatHistory((prev) => ({
+//       ...prev,
+//       [selectedUser._id]: [...(prev[selectedUser._id] || []), data],
+//     }));
+//     setMessage("");
+//   };
+
+//   // Receive messages and online users
+//   useEffect(() => {
+//     socket.on("receive_message", ({ senderId, message }) => {
+//       setChatHistory((prev) => ({
+//         ...prev,
+//         [senderId]: [...(prev[senderId] || []), { senderId, message }],
+//       }));
+//     });
+
+//     socket.on("online_users", (ids) => {
+//       setOnlineUsers(ids);
+//     });
+
+//     return () => {
+//       socket.off("receive_message");
+//       socket.off("online_users");
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     scrollToBottom();
+//   }, [chatHistory, selectedUser]);
+
+//   // Login UI
+//   if (!user) {
+//     return (
+//       <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-200 to-purple-200">
+//         <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+//           <h2 className="text-3xl font-bold mb-6 text-center text-blue-600">
+//             Login / Register
+//           </h2>
+//           <input
+//             className="w-full mb-4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+//             value={name}
+//             onChange={(e) => setName(e.target.value)}
+//             placeholder="Name"
+//           />
+//           <input
+//             className="w-full mb-4 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             placeholder="Email"
+//           />
+//           <button
+//             className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition-colors"
+//             onClick={handleLogin}
+//           >
+//             Enter Chat
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   // Chat UI
+//   return (
+//     <div className="flex h-screen bg-gray-100">
+//       {/* Sidebar */}
+//       <div
+//         className={`${
+//           sidebarOpen ? "w-64" : "w-16"
+//         } border-r p-4 bg-white flex flex-col transition-width duration-300`}
+//       >
+//         <button
+//           className="mb-4 text-gray-500 hover:text-gray-800"
+//           onClick={() => setSidebarOpen(!sidebarOpen)}
+//         >
+//           {sidebarOpen ? "«" : "»"}
+//         </button>
+
+//         {sidebarOpen && (
+//           <div className="mb-6 p-4 bg-blue-100 rounded-xl text-center shadow-sm">
+//             <h2 className="font-bold text-lg">{user.name}</h2>
+//             <p className="text-sm text-gray-700">{user.email}</p>
+//           </div>
+//         )}
+
+//         {sidebarOpen && <h3 className="font-semibold mb-3 text-gray-600">Users</h3>}
+//         <div className="flex-1 overflow-y-auto">
+//           {users.map((u) => {
+//             const isOnline = onlineUsers.includes(u._id);
+//             return (
+//               <div
+//                 key={u._id}
+//                 onClick={() => selectUser(u)}
+//                 className={`flex items-center p-3 mb-2 rounded-lg cursor-pointer transition-colors ${
+//                   selectedUser?._id === u._id
+//                     ? "bg-blue-200 font-semibold"
+//                     : "hover:bg-gray-100"
+//                 }`}
+//               >
+//                 <span
+//                   className={`h-3 w-3 rounded-full mr-3 ${
+//                     isOnline ? "bg-green-500" : "bg-gray-400"
+//                   }`}
+//                 />
+//                 {sidebarOpen && <span>{u.name}</span>}
+//               </div>
+//             );
+//           })}
+//         </div>
+//       </div>
+
+//       {/* Chat Box */}
+//       <div className="flex-1 flex flex-col p-4">
+//         <h3 className="font-semibold mb-3 text-gray-700 text-lg">
+//           Chat with: {selectedUser ? selectedUser.name : "Select a user"}
+//         </h3>
+//         <div className="flex-1 p-4 border rounded-2xl bg-white overflow-y-auto space-y-3 flex flex-col">
+//           {(selectedUser && chatHistory[selectedUser._id])?.map((m, i) => (
+//             <div
+//               key={i}
+//               className={`max-w-xs p-3 rounded-2xl break-words ${
+//                 m.senderId === user._id
+//                   ? "bg-blue-500 text-white self-end"
+//                   : "bg-gray-200 text-gray-800 self-start"
+//               }`}
+//             >
+//               <span className="font-semibold">
+//                 {m.senderId === user._id ? "You" : selectedUser.name}
+//               </span>
+//               : {m.message}
+//             </div>
+//           ))}
+//           <div ref={messagesEndRef} />
+//         </div>
+//         {selectedUser && (
+//           <div className="flex mt-4">
+//             <input
+//               className="flex-1 p-3 border rounded-2xl mr-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+//               value={message}
+//               onChange={(e) => setMessage(e.target.value)}
+//               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+//               placeholder="Type a message..."
+//             />
+//             <button
+//               className="bg-blue-500 text-white p-3 rounded-2xl hover:bg-blue-600 transition-colors"
+//               onClick={sendMessage}
+//             >
+//               Send
+//             </button>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
